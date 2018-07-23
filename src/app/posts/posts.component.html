@@ -1,0 +1,59 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mr-auto">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','left')">Novo Post</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','center')">Categorias</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','right')">Tags</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Posts</h4>
+                        <p class="card-category"> Subtitulo</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th><input type="checkbox"></th>
+                                    <th><i class="material-icons">insert_photo</i></th>
+                                    <th> Titulo </th>
+                                    <th>Autor</th>
+                                    <th>Categoria</th>
+                                    <th>Tags</th>
+                                    <th>Estatisticas</th>
+                                    <th>data</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><i class="material-icons">insert_photo</i></td>
+                                        <td>Titulo do post</td>
+                                        <td>Fulano de tal</td>
+                                        <td>Notícias</td>
+                                        <td>comida, noticias</td>
+                                        <td>sobre as estatisticas</td>
+                                        <td>00/18/3000</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
