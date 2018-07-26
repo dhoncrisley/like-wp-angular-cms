@@ -4,13 +4,13 @@
             <div class="col-lg-8 col-md-10 mr-auto">
                 <div class="row">
                     <div class="col-md-4">
-                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','left')">Novo Post</button>
+                        <button mat-raised-button class="btn btn-success btn-block" (click)="newPost()">+ Novo Post</button>
                     </div>
                     <div class="col-md-4">
-                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','center')">Categorias</button>
+                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showCategories()">Categorias</button>
                     </div>
                     <div class="col-md-4">
-                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showNotification('bottom','right')">Tags</button>
+                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showtags()">Tags</button>
                     </div>
                 </div>
             </div>
@@ -32,21 +32,25 @@
                                     <th>Autor</th>
                                     <th>Categoria</th>
                                     <th>Tags</th>
-                                    <th>Estatisticas</th>
+                                    <!-- <th>Estatisticas</th> -->
                                     <th>data</th>
+                                    <th>Editar</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let post of postsRef | async; i as index">
                                         <td><input type="checkbox"></td>
-                                        <td><i class="material-icons">insert_photo</i></td>
-                                        <td>Titulo do post</td>
-                                        <td>Fulano de tal</td>
-                                        <td>Notícias</td>
-                                        <td>comida, noticias</td>
-                                        <td>sobre as estatisticas</td>
-                                        <td>00/18/3000</td>
+                                        <td>
+                                            <img class="post-mini-thumb" *ngIf="post.post_thumb" [src]="post.post_thumb" alt="">
+                                            <i *ngIf="!post.post_thumb" class="material-icons">insert_photo</i>
+                                        </td>
+                                        <td>{{post.post_title}}</td>
+                                        <td>{{post.post_author}}</td>
+                                        <td><span *ngFor="let category of post.post_categories">{{category}} </span> </td>
+                                        <td><span *ngFor="let tag of post.post_tags">{{tag}} </span></td>
+                                        <!-- <td>sobre as estatisticas</td> -->
+                                        <td style="width:150px;">{{post.post_date | date:'fullDate'}}</td>
+                                        <td><a routerLink="{{post.post_id}}"><i class="material-icons">edit</i></a></td>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>

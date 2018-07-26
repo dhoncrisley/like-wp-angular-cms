@@ -19,6 +19,22 @@ import {
   MatRippleModule,
   MatTooltipModule,
 } from '@angular/material';
+import { PostEditCreateComponent } from '../../post-edit-create/post-edit-create.component';
+import { FroalaEditorModule, FroalaViewModule } from '../../../../node_modules/angular-froala-wysiwyg';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
+  }
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -26,10 +42,15 @@ import {
     FormsModule,
     MatButtonModule,
     MatRippleModule,
+    AngularFireStorageModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase, ''),
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
     MatInputModule,
     MatTooltipModule,
   ],
   declarations: [
+    PostEditCreateComponent,
     DashboardComponent,
     UserProfileComponent,
     TableListComponent,

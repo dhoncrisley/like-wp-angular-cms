@@ -9,20 +9,22 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
-import {
-  AgmCoreModule
-} from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AngularFireModule } from '../../node_modules/angularfire2';
+import { AngularFirestoreModule } from '../../node_modules/angularfire2/firestore';
 
+export const environment = {
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyALz_kVrrdh7PjwOzJCSyG7oaPI-3wCEps",
+    authDomain: "dotti-e8d92.firebaseapp.com",
+    databaseURL: "https://dotti-e8d92.firebaseio.com",
+    projectId: "dotti-e8d92",
+    storageBucket: "dotti-e8d92.appspot.com",
+    messagingSenderId: "612121511551"
+  }
+};
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -31,6 +33,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
