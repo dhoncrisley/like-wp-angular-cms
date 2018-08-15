@@ -26,36 +26,61 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
-                                    <th><input type="checkbox"></th>
-                                    <th><i class="material-icons">insert_photo</i></th>
+                                    <th>
+                                        <input type="checkbox">
+                                    </th>
+                                    <th>
+                                        <i class="material-icons">insert_photo</i>
+                                    </th>
                                     <th> Titulo </th>
                                     <th>Autor</th>
                                     <th>Categoria</th>
                                     <th>Tags</th>
                                     <!-- <th>Estatisticas</th> -->
-                                    <th>data</th>
+                                    <th>Criado em:</th>
+                                    <th>Modificado em:</th>
                                     <th>Editar</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let post of postsRef | async; i as index">
-                                        <td><input type="checkbox"></td>
+                                    <!--                       <tr *ngFor="let category of catsRef | async; i as index">
+                                        <td>{{category.cat_name}}</td>
+                                    </tr> -->
+                                    <tr *ngFor="let post of posts | async; i as index">
+                                        <td>
+                                            <input type="checkbox">
+                                        </td>
                                         <td>
                                             <img class="post-mini-thumb" *ngIf="post.post_thumb" [src]="post.post_thumb" alt="">
                                             <i *ngIf="!post.post_thumb" class="material-icons">insert_photo</i>
                                         </td>
-                                        <td>{{post.post_title}}</td>
-                                        <td>{{post.post_author}}</td>
-                                        <td><span *ngFor="let category of post.post_categories">{{category}} </span> </td>
-                                        <td><span *ngFor="let tag of post.post_tags">{{tag}} </span></td>
+                                        <td>
+                                            <a target="_blank" href="http://localhost:4200/post/{{post.post_name}}">{{post.post_title}}</a>
+                                        </td>
+                                        <td>
+                                            <a routerLink="/admin/users/{{post.post_author}}">{{post.post_author}}</a>
+                                        </td>
+                                        <td style="width:150px;">
+                                            <a *ngFor="let category of post.post_categories" routerLink="/admin/categories/{{getCategory(category).cat_slug}}">{{getCategory(category).cat_name}} </a>
+                                        </td>
+                                        <td>
+                                            <a *ngFor="let tag of post.post_tags">{{tag}} </a>
+                                        </td>
                                         <!-- <td>sobre as estatisticas</td> -->
-                                        <td style="width:150px;">{{post.post_date | date:'fullDate'}}</td>
-                                        <td><a routerLink="{{post.post_id}}"><i class="material-icons">edit</i></a></td>
+                                        <td style="width:150px;">{{post.post_date | date:'dd/LL/yyyy - HH:mm'}}</td>
+                                        <td style="width:150px;">{{post.post_modified | date:'dd/LL/yyyy - HH:mm'}}</td>
+                                        <td>
+                                            <a routerLink="{{post.post_id}}">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                <!-- <app-loader *ngIf="posts | async as post"> {{post}} </app-loader> -->
+                <h4 *ngIf="posts | async as post"> <label *ngIf="!post">Nenhum post encontrado</label> </h4>
             </div>
 
         </div>

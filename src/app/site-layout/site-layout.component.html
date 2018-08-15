@@ -1,0 +1,56 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Widgets</h4>
+                        <p class="card-category">Adicione widgets a sua sidebar registrada</p>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-success add" (click)="openDialog()">
+                            <i class="material-icons">add</i>
+                        </button>
+                        <div class="card widget" *ngFor="let widget of activeWidgets | async">
+                            <div class="manage-hover-buttons">
+                                <div class="manage-buttons">
+                                    <i class="material-icons" matTooltip="Remover" [matTooltipPosition]="'above'" (click)="removeWidget(widget)">close</i>
+                                    <i class="material-icons" matTooltip="Editar" [matTooltipPosition]="'above'" (click)="editWidget(widget)">edit</i>
+                                </div>
+                            </div>
+                            <div [innerHtml]="widget.html | safeHtml">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Navbar</h4>
+                        <p class="card-category">Adicione links a sua navbar</p>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn add">
+                            <i class="material-icons">add</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Rodapé</h4>
+                        <p class="card-category">Informações do rodapé</p>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn add">
+                            <i class="material-icons">add</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

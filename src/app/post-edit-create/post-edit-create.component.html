@@ -3,16 +3,19 @@
         <div class="row">
             <div class="col-lg-9 mr-auto">
 
-
+                <!-- <pre>Categories id: {{postCategories}} <br></pre> -->
                 <h3 class="col-md-12">{{title}}</h3>
                 <h3 class="col-md-12">{{downloadURL | async}}</h3>
                 <form>
                     <div class="form-group col-md-6">
-                        <label for="title">Título</label>
-                        <input type="text" class="form-control" id="title" required [(ngModel)]="postTitle" [ngModelOptions]="{standalone: true}">
+                        <mat-form-field class="example-full-width">
+                            <input matInput [(ngModel)]="postTitle" [ngModelOptions]="{standalone: true}" placeholder="Título">
+                        </mat-form-field>
+                        <!-- <label for="title">Título</label>
+                        <input type="text" class="form-control" id="title" required > -->
                     </div>
-                    <textarea id="content-area" class="form-group col-lg-12" [froalaEditor]="froalaOptions" [(ngModel)]="content" required [ngModelOptions]="{standalone: true}"></textarea>
-
+                    <textarea id="content-area" class="form-group col-lg-12" [froalaEditor]="options" [(froalaModel)]="twoWayContent" [(ngModel)]="content" required [ngModelOptions]="{standalone: true}"></textarea>
+ 
                     <button type="submit" (click)="savePost()" class="btn btn-success">Salvar</button>
 
                 </form>
@@ -23,28 +26,38 @@
 
                 <div class="row side-panel">
                     <div class="col-md-12">
-
                         <h6>Categorias</h6>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Nova Categoria" aria-label="Nova Categoria">
-                            <div class="input-group-append">
-                                <button class="btn btn-success btn-sm" type="button">add</button>
-                            </div>
-                        </div>
-                        <ul id="categories-panel">
-                            <li>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox">
-                                        <span class="form-check-sign ">
-                                            <span class="check text-danger"></span>
-                                        </span>
-                                        Tags 2
-                                    </label>
+                        <form>
+                            <div class="input-group">
+                                <input type="text" class="form-control" [(ngModel)]="newCategory" [ngModelOptions]="{standalone: true}" required placeholder="Nova Categoria"
+                                    aria-label="Nova Categoria">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success btn-sm" (click)="saveCategory()" type="submit">add</button>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </form>
+                        <form [formGroup]="catForm">
+
+                            <ul id="categories-panel">
+                                <li *ngFor="let category of dbCategories | async">
+                                    <div *ngIf="(category.cat_active)" class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" (change)="onCatChange(category.cat_id, $event.target.checked)" [checked]="checkCategory(category.cat_id)"
+                                                type="checkbox">
+                                            <span class="form-check-sign ">
+                                                <span class="check text-danger"></span>
+                                            </span>
+                                            {{category.cat_name}}
+                                        </label>
+                                        <i (click)="deleteCategory(category)" class="material-icons mr-auto delete-button">close</i>
+                                    </div>
+                                </li>
+
+                                <!-- <li *ngIf="(categories|async)">Nenhuma categoria cadastrada</li> -->
+                            </ul>
+                        </form>
                     </div>
+
                 </div>
                 <div class="row side-panel">
                     <div class="col-md-12">
@@ -53,7 +66,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Nova Categoria" aria-label="Nova Categoria">
                             <div class="input-group-append">
-                                <button class="btn btn-success btn-sm" type="button">add</button>
+                                <button class="" type="button">add</button>
                             </div>
                         </div>
                         <ul id="tags-panel">
@@ -92,7 +105,9 @@
                             </li>
                         </ul>
                         <progress max="100" *ngIf="uploading" class="progress-bar bg-warning" [value]="(uploadPercent | async)">0%</progress>
-                        <h3><i *ngIf="uploadComplete" class="material-icons mr-auto">checkmark</i></h3>
+                        <h3>
+                            <i *ngIf="uploadComplete" class="material-icons mr-auto">checkmark</i>
+                        </h3>
                         <div class="result" *ngIf="thumbURL">
                             <img class="thumbnail" [src]="thumbURL" target="_blank">
                         </div>

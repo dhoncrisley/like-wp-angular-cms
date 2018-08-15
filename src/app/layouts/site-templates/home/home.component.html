@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-9 col-md-8 col-sm-8 ">
+            <div class="row">
+                <div *ngFor="let post of posts | async; let first = first" [class.col-xl-5]="first" class="col-sm-6 col-md-6 col-lg-4 col-xl-3" >
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <a class="card-title " routerLink="post/{{(post)?.post_name}}"><h4>{{(post)?.post_title}}</h4></a>
+                            <p class="card-category"> {{(post)?.post_date | date:' dd/MM/yyyy - H:mm '}}</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div class="card">
+                                    <a routerLink="post/{{(post)?.post_name}}">
+
+                                        <img class="thumb" src="{{(post)?.post_thumb}}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-4  col-sm-4">
+            <div class="row">
+
+                <div class="col-12 ">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <a class="card-title ">Sidebar</a>
+                            <p class="card-category"> Subtitulo</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div class="card" *ngFor="let widget of activeWidgets | async" >
+                                    <h3>{{widget.name}}</h3>
+                                    <div [innerHtml]="widget.html">conteúdo</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

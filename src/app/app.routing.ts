@@ -1,32 +1,47 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { SiteComponent } from './layouts/site/site.component';
+import { LoginComponent } from './components/login/login.component';
 
-const routes: Routes =[
-  {
-    path: '',
-    redirectTo: 'dashboard',
+const routes: Routes = [
+
+  /* {
+    path: 'admin',
+    redirectTo: 'admin/dashboard',
     pathMatch: 'full',
-  }, {
-    path: '',
+  }, */
+  {
+    path: 'admin/login',
+    component: LoginComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './components/components.module#ComponentsModule'
+      },
+    ]
+  }, 
+  {
+    path: 'admin',
     component: AdminLayoutComponent,
     children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]}
-    // { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'user-profile',   component: UserProfileComponent },
-    // { path: 'table-list',     component: TableListComponent },
-    // { path: 'typography',     component: TypographyComponent },
-    // { path: 'icons',          component: IconsComponent },
-    // { path: 'maps',           component: MapsComponent },
-    // { path: 'notifications',  component: NotificationsComponent },
-    // { path: 'upgrade',        component: UpgradeComponent },
-    // { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
+      {
+        path: '',
+        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      }]
+  }, 
+  {
+    path: '',
+    component: SiteComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/site/site.module#SiteModule'
+      }]
+  },
 ];
 
 @NgModule({

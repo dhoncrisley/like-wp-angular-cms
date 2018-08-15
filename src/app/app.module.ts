@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -9,10 +9,15 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
-import { AgmCoreModule } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AngularFireModule } from '../../node_modules/angularfire2';
-import { AngularFirestoreModule } from '../../node_modules/angularfire2/firestore';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { SiteComponent } from './layouts/site/site.component';
+import { SiteModule } from './layouts/site/site.module';
+import { SafeCssPipe, SafeHtmlPipe } from './widget-modal/widget-modal.component';
+import { LoginComponent } from 'app/components/login/login.component';
+
+
 
 export const environment = {
   production: false,
@@ -26,25 +31,28 @@ export const environment = {
   }
 };
 @NgModule({
+  declarations: [
+    AppComponent,
+    AdminLayoutComponent,
+    SiteComponent,
+    
+  ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     ComponentsModule,
     RouterModule,
+    SiteModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AgmCoreModule.forRoot({
+    AngularFirestoreModule, 
+    /* AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
-  ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent
-
+    }) */
   ],
   providers: [],
-  bootstrap: [AppComponent]
+
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

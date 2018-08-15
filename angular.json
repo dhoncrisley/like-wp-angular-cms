@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "material-dashboard-angular": {
+    "like-wp-angular-cms": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,6 +17,11 @@
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "./node_modules/monaco-editor/min/vs",
+                "output": "libs/vs"
+              },
               "src/assets",
               "src/favicon.ico"
             ],
@@ -29,6 +34,8 @@
               "src/assets/css/demo.css"
             ],
             "scripts": [
+
+              "src/assets/js/masonry.pkgd.js",
               "node_modules/jquery/dist/jquery.js",
               "node_modules/froala-editor/js/froala_editor.pkgd.min.js",
               "node_modules/popper.js/dist/umd/popper.js",
@@ -63,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material-dashboard-angular:build"
+            "browserTarget": "like-wp-angular-cms:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "material-dashboard-angular:build:production"
+              "browserTarget": "like-wp-angular-cms:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material-dashboard-angular:build"
+            "browserTarget": "like-wp-angular-cms:build"
           }
         },
         "test": {
@@ -120,32 +127,9 @@
           }
         }
       }
-    },
-    "material-dashboard-angular-e2e": {
-      "root": "",
-      "sourceRoot": "e2e",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "material-dashboard-angular:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": []
-          }
-        }
-      }
     }
   },
-  "defaultProject": "material-dashboard-angular",
+  "defaultProject": "like-wp-angular-cms",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

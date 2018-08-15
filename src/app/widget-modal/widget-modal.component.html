@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>Novo Widget</h1>
+<div mat-dialog-content>
+  <p>Escolha o modelo ou adicione um template</p>
+  <div class="tabs-selection">
+    <p>
+      <input id="preset" name="preset" ng-control="options" type="radio" [value]="1" [(ngModel)]="tab">
+      <label for='preset'> Predefinido </label>
+      <br/>
+      <input id="custom" name="custom" ng-control="options" type="radio" [value]="2" [(ngModel)]="tab">
+      <label for='custom'> Personalizado </label>
+    </p>
+  </div>
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="1">
+      <div class="widget" *ngFor="let widget of widgets | async; let indx = index">
+        <input name='widgetGroup' type='radio' [id]='widget.name' [value]='widget' [(ngModel)]='selected' />
+        <label [for]='widget.name'> {{ widget.name}}</label>
+        <div class="card" [style]="widget.css" [innerHtml]="widget.html | safeHtml"></div>
+      </div>
+    </div>
+    <div *ngSwitchCase="2">
+      <div *ngIf="data.html">
+        <h3>Prévia</h3>
+        <div class="card" [style]="data.css| safeCss" [innerHtml]="data.html | safeHtml"></div>
+      </div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="data.name" type="text" placeholder="Nome do Widget">
+      </mat-form-field>
+      <monaco-editor #editor theme="vs-dark" (ready)="onReady($event)" [file]="file" [options]="{quickSuggestions: true}" name="html"
+        (fileChange)="onFileChange($event)">
+      </monaco-editor>
+      <!-- <mat-form-field>
+        <input matInput [(ngModel)]="data.css" placeholder="CSS">
+      </mat-form-field> -->
+    </div>
+    <div *ngSwitchDefault></div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="returnData()" cdkFocusInitial>Ok</button>
+</div>

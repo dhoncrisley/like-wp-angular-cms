@@ -5,21 +5,30 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { LoginComponent } from 'app/components/login/login.component';
+import { MatInputModule } from '../../../node_modules/@angular/material';
+import { FormsModule } from '../../../node_modules/@angular/forms';
+// import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    MatInputModule,
+    FormsModule
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoginComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
-  ]
+    SidebarComponent,
+    LoginComponent
+  ],
+  entryComponents:[]
 })
 export class ComponentsModule { }

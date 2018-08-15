@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '../../../node_modules/@angular/router';
-import { AngularFirestore } from '../../../node_modules/angularfire2/firestore';
+import { Router } from '@angular/router';
+import { AngularFirestore } from 'angularfire2/firestore';
 import 'rxjs/add/operator/map';
-import { Post } from '../post-edit-create/post-edit-create.component';
+import { Post } from '../models/Post.model';
+import { Observable } from 'rxjs/Observable';
+import { Category } from '../models/category.model';
+import { GeneralFunctionsService } from 'app/general-functions.service';
+
 
 @Component({
   selector: 'app-posts',
@@ -11,12 +15,25 @@ import { Post } from '../post-edit-create/post-edit-create.component';
 })
 export class PostsComponent implements OnInit {
   postsRef: any;
-  posts: Array<Post>;
+  posts: any;
+  catsRef: any;
+  categories: Array<Category>;
 
-  constructor(private _afs: AngularFirestore,private _router:Router) { }
+  constructor(private _afs: AngularFirestore,
+    private _router: Router,
+    private _gFunctions: GeneralFunctionsService) {
+
+  }
 
   ngOnInit() {
-    this.postsRef = this._afs.collection('posts').valueChanges();
+    this.postsRef = this._afs.collection('posts');
+    this.posts = this._gFunctions.getPosts();
+    this.catsRef = this._afs.collection('categories').valueChanges().subscribe((cb: Array<Category>) => {
+      this.categories = cb;
+      return cb
+    })
+
+    //this.categorias = Observable.combineLatest()
     /*  this._afs.collection('posts').snapshotChanges().map(r => {
       var post:Post;
        console.log(r);
@@ -27,12 +44,17 @@ export class PostsComponent implements OnInit {
       });
     }) */
   }
-  newPost(){
-    this._router.navigate(['posts/new']);
-    
+  getCategory(category): any {
+    // console.log(this.categories);
+    const catName = this.categories.filter(item => item.cat_id == category);
+    return catName[0] ? (catName[0]) : 'excluída';
   }
-  editPost(postId){
-    this._router.navigate(['posts/'+ postId]);
+  newPost() {
+    this._router.navigate(['admin/posts/new']);
+
+  }
+  editPost(postId) {
+    this._router.navigate(['posts/' + postId]);
 
   }
 }

@@ -1,0 +1,43 @@
+.add {
+    height: auto ;
+    width: 100%;
+    //background: rgba(0, 0, 0, 0.25);
+    color: white;
+    i{
+        margin: auto;
+        font-size: 20pt;
+    }
+}
+.card-body{
+    transition: 1s;
+    min-height: 100px;
+}
+.manage-hover-buttons{
+    display: none;
+    background: #00000050;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    
+}
+.widget:hover{
+    .manage-hover-buttons{
+        display: block;
+    }
+}
+.manage-buttons{
+    i{
+        cursor: pointer;
+        transition: .25s;
+    }
+    i:hover{
+        transition: .25s;
+        color: rgb(231, 231, 231);
+        text-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    }
+    position: absolute;
+    right: 10px;
+    color: white;
+    top: 10px;
+}
