@@ -84,7 +84,7 @@ export class PostEditCreateComponent implements OnInit {
 
   uploadImage() {
     console.log('uploading image')
-    return 'https://d1bcl7tdsf48aa.cloudfront.net/images/screenshots/quests2/01s.jpg'
+    return 'cloud functions rest url'
   }
   ngOnInit() {
 
