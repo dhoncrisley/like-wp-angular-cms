@@ -2,7 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
-import { GeneralFunctionsService } from '../../general-functions.service';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
+
 
 @Component({
     selector: 'app-navbar',

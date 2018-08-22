@@ -9,7 +9,9 @@ import { Observable } from 'rxjs';
 import { Post } from '../models/Post.model';
 import { Category } from '../models/category.model';
 import { FormArray, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { GeneralFunctionsService } from '../general-functions.service';
+
+import { Http } from '../../../node_modules/@angular/http';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
 
 @Component({
   selector: 'app-post-edit-create',
@@ -21,39 +23,50 @@ export class PostEditCreateComponent implements OnInit {
   title: string;
   id;
   postTitle;
-  twoWayContent;
   content;
-  froalaOptions = {
-    heightMin: 320,
-    placeholderText: "Escreva alguma coisa aqui"
-  }
+
   options = {
-    placeholderText: "Edit Me",
+    heightMin: 400,
+    heightMax: 600,
+    placeholderText: "Escreva o conteúdo do conteúdo aqui",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-    imageUploadMethod: 'POST',
-    imageUploadURL: this.uploadImage(),
+    imageUploadMethod: 'GET',
+    imageManagerPageSize: 10,
+    imageManagerPreloader: '../../assets/img/gears.gif',
+    imageManagerDeleteParams: { exclude: true },
+    imageManagerDeleteURL: 'http://localhost:5000/dotti-e8d92/us-central1/deleteImage',
+    imageManagerLoadURL: 'http://localhost:5000/dotti-e8d92/us-central1/loadImages',
     events: {
-      'froalaEditor.image.inserted': (e, editor, $img, response) => {
-        //console.log(editor.selection.get());
-        //console.log('Inserted evento', e);
-        //console.log('Inserted resposta', response);
-        //console.log('Inserted imagem', $img);
 
+      'froalaEditor.image.beforeUpload': (e, editor, response) => {
+        //ARRUMAR SABAGAÇA DEPOIS
+        this.imageUploading = true;
+        const id = this._afs.createId();
+        const path = 'images/posts/' + id + '/' + Date.now() + response[0].name;
+        var ref: AngularFireStorageReference = this._storage.ref(path);
+        var task: AngularFireUploadTask = ref.put(response[0]);
+        var uploadPercent = task.percentageChanges();
+        task.task.on('state_changed', (snapshot: UploadTaskSnapshot) => {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        }, (err: Error) => {
+          console.log(err.message);
+        }, () => {
+          task.task.snapshot.ref.getDownloadURL().then((url: UploadTaskSnapshot) => {
+            console.log(url);
+            this._afs.collection('postMedia/').doc(id).set({
+              id: id,
+              url: url,
+              thumb: url,
+              //tag: 'tag'
+            });
+            this.imageUploading = false;
 
-        //console.log(this.content);
+            editor.image.insert(url, false, null, editor.image.get(), response);
+          });
+        });
 
-      },
-      //'froalaEditor.image.beforePasteUpload': (e, editor, img) => {
-        //console.log('Paste evento', e)
-        //console.log('Paste editor', editor)
-        //console.log('Paste image', img)
-        //console.log(this.twoWayContent);
-      //},
-      'froalaEditor.image.beforeUpload': (e, editor, images) => {
-        console.log('Upload evento', e)
-        console.log('Upload editor', editor)
-        console.log('Upload images', images[0])
-        //console.log(this.twoWayContent);
+        return false;
+
       },
     }
   }
@@ -70,24 +83,27 @@ export class PostEditCreateComponent implements OnInit {
   dbCategories: Observable<any[]>;
   postCategories: Array<any>;
   catForm: FormGroup;
+  imageUploading: boolean;
+  adminName: any;
   constructor(
     private _gFunctions: GeneralFunctionsService,
     private _storage: AngularFireStorage,
     private _afs: AngularFirestore,
     private _route: ActivatedRoute,
     private _location: Location,
-    private _fb: FormBuilder) {
+    private _fb: FormBuilder,
+    private _http: Http) {
 
     this.catRef = this._afs.collection<Category>('categories');
     this.postsRef = this._afs.collection('posts')
   }
 
-  uploadImage() {
-    console.log('uploading image')
-    return 'cloud functions rest url'
-  }
-  ngOnInit() {
 
+  ngOnInit() {
+    this._gFunctions.getAdminName().then(()=>{
+
+      console.log(this.adminName)
+    });
     this._route.params.subscribe(params => {
       if (params.id == "new") {
         this.title = 'Novo Post';
@@ -135,6 +151,7 @@ export class PostEditCreateComponent implements OnInit {
 
     }).catch(error => {
       this._gFunctions.showNotification('danger', 'center', "Erro ao deletar a categoria " + category.cat_name + ", tente novamente.");
+    
       console.error("Error removing document: ", error);
     });
   }
@@ -176,7 +193,7 @@ export class PostEditCreateComponent implements OnInit {
       post_id: id,
       post_content: this.content,
       post_title: this.postTitle,
-      post_author: 'test admin',
+      post_author: 'this.adminName',
       post_name: this._gFunctions.replaceSpecialChars(this.postTitle),
       post_thumb: this.thumbURL ? this.thumbURL : '',
       post_date: this.postDate,
@@ -184,9 +201,16 @@ export class PostEditCreateComponent implements OnInit {
       post_tags: [1, 4, 2],
       post_categories: this.postCategories ? this.postCategories : []
     };
-    this._afs.collection('posts/').doc(id).set(this.postData);
-    this._location.back();
+    this._afs.collection('posts/').doc(id).set(this.postData).then(res =>{
+
+      this._location.back();
+    }, error=>{
+      console.log(error);
+      const msg = "Erro ao ao salvar o post: "+ error.message;
+      this._gFunctions.showNotification('danger', 'center', msg);
+    });
   }
+
 
   fileChanged($event) {
     this.uploadComplete = false;
@@ -214,12 +238,42 @@ export class PostEditCreateComponent implements OnInit {
     }, () => {
       task.task.snapshot.ref.getDownloadURL().then((url: UploadTaskSnapshot) => {
         this.thumbURL = url;
+        console.log(url);
+        const id = this._afs.createId()
+        this._afs.collection('postMedia/').doc(id).set({
+          id: id,
+          url: url,
+          thumb: url,
+          tag: 'tag'
+        });
         this.uploadComplete = true;
         this.uploading = false;
         console.log(this.thumbURL);
       });
     });
 
+    //this.uploadImage($event.target.files[0], true);
+
+  }
+  uploadImage(image?, newPhoto?: boolean) {
+    var result = this._http.post('http://localhost:5000/dotti-e8d92/us-central1/uploadImage', image)
+    result.subscribe(res => {
+      console.log(res)
+    })
+  }
+
+
+  async getImages() {
+    var imagesRef;
+    imagesRef = await new Promise((resolve, reject) => {
+      this._afs.collection('postMedia').valueChanges().subscribe(res => {
+        resolve(res);
+      })
+    });
+
+
+    this.adminName = imagesRef;
+    return imagesRef;
   }
 
 }

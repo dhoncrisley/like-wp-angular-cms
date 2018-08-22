@@ -1,5 +1,12 @@
+<div *ngIf="imageUploading" class="overlay-loader">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</div>
 <div class="main-content">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-lg-9 mr-auto">
 
@@ -14,8 +21,11 @@
                         <!-- <label for="title">Título</label>
                         <input type="text" class="form-control" id="title" required > -->
                     </div>
-                    <textarea id="content-area" class="form-group col-lg-12" [froalaEditor]="options" [(froalaModel)]="twoWayContent" [(ngModel)]="content" required [ngModelOptions]="{standalone: true}"></textarea>
- 
+
+                    <textarea id="content-area" class="form-group col-lg-12" [froalaEditor]="options" [(froalaModel)]="twoWayContent" [(ngModel)]="content"
+                        required [ngModelOptions]="{standalone: true}"></textarea>
+
+
                     <button type="submit" (click)="savePost()" class="btn btn-success">Salvar</button>
 
                 </form>

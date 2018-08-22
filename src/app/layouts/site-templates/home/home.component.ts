@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, ViewChild, ComponentRef, Input, Directive, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { GeneralFunctionsService } from '../../../general-functions.service';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
 
 declare var $: any;
 @Component({

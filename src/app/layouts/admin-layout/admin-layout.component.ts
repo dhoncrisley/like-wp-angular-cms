@@ -5,8 +5,9 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
-import { GeneralFunctionsService } from 'app/general-functions.service';
+
 import { AngularFireAuth } from '../../../../node_modules/angularfire2/auth';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
 
 @Component({
     selector: 'app-admin-layout',

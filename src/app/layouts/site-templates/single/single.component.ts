@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralFunctionsService } from '../../../general-functions.service';
+
 import { ActivatedRoute } from '@angular/router';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
 
 @Component({
   selector: 'app-single',

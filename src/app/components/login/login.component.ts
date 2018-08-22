@@ -3,7 +3,8 @@ import { User } from '../../../../node_modules/firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
 import { Router } from '../../../../node_modules/@angular/router';
-import { GeneralFunctionsService } from '../../general-functions.service';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

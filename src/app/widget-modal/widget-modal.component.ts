@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject, Input, Pipe, PipeTransform } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { GeneralFunctionsService } from '../general-functions.service';
+
 import { DomSanitizer } from '@angular/platform-browser';
 import { MonacoFile } from 'ngx-monaco';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
 
 @Component({
   selector: 'app-widget-modal',
@@ -40,7 +41,7 @@ export class WidgetModalComponent {
     }
   }
   onReady(editor: monaco.editor.IEditor) {
-		console.log(editor);
+		//console.log(editor);
 		// Bootstrap(editor);
 	}
 
@@ -62,17 +63,4 @@ export class WidgetModalComponent {
   }
 
 }
-@Pipe({ name: 'safeHtml'})
-export class SafeHtmlPipe implements PipeTransform  {
-  constructor(private sanitized: DomSanitizer) {}
-  transform(value) {
-    return this.sanitized.bypassSecurityTrustHtml(value);
-  }
-}
-@Pipe({ name: 'safeCss'})
-export class SafeCssPipe implements PipeTransform  {
-  constructor(private sanitized: DomSanitizer) {}
-  transform(value) {
-    return this.sanitized.bypassSecurityTrustStyle(value);
-  }
-}
+

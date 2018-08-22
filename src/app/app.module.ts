@@ -14,8 +14,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SiteComponent } from './layouts/site/site.component';
 import { SiteModule } from './layouts/site/site.module';
-import { SafeCssPipe, SafeHtmlPipe } from './widget-modal/widget-modal.component';
-import { LoginComponent } from 'app/components/login/login.component';
+import { FroalaEditorModule, FroalaViewModule } from '../../node_modules/angular-froala-wysiwyg';
+import { SafeHtmlPipe } from './safe-html.pipe';
+import { SafeCssPipe } from './safe-css.pipe';
+import { DragulaModule } from 'ng2-dragula';
 
 
 
@@ -45,6 +47,7 @@ export const environment = {
     RouterModule,
     SiteModule,
     AppRoutingModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, 
     /* AgmCoreModule.forRoot({
@@ -52,6 +55,7 @@ export const environment = {
     }) */
   ],
   providers: [],
+  exports:[FroalaEditorModule, FroalaViewModule],
 
   bootstrap: [AppComponent],
 })

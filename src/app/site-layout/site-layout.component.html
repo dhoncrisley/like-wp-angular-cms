@@ -8,7 +8,7 @@
                         <p class="card-category">Adicione widgets a sua sidebar registrada</p>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-success add" (click)="openDialog()">
+                        <button class="btn add" (click)="openDialog()">
                             <i class="material-icons">add</i>
                         </button>
                         <div class="card widget" *ngFor="let widget of activeWidgets | async">
@@ -31,9 +31,20 @@
                         <p class="card-category">Adicione links a sua navbar</p>
                     </div>
                     <div class="card-body">
-                        <button class="btn add">
+                        <button class="btn add" (click)="addNavItem()">
                             <i class="material-icons">add</i>
                         </button>
+                        <div dragula="DRAG_NAV" [(dragulaModel)]="navItems" >
+                            <div class="card menu-item" *ngFor="let item of menus | async">
+                                <div class="manage-hover-buttons">
+                                    <div class="manage-buttons">
+                                        <i class="material-icons" matTooltip="Remover" [matTooltipPosition]="'above'" (click)="removeNavItem(item)">close</i>
+                                        <i class="material-icons" matTooltip="Editar" [matTooltipPosition]="'above'" (click)="editNavItem(item)">edit</i>
+                                    </div>
+                                </div>
+                                <h4> {{item.name}}</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -47,6 +58,9 @@
                         <button class="btn add">
                             <i class="material-icons">add</i>
                         </button>
+
+
+
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralFunctionsService } from '../general-functions.service';
 import { FirebaseFirestore } from 'angularfire2';
 import { FirebaseError } from 'firebase';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
 
 @Component({
   selector: 'app-configurations',

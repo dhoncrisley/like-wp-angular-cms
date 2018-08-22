@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TypographyComponent } from './typography.component';
+import { AddMenuDialogComponent } from './add-menu-dialog.component';
 
-describe('TypographyComponent', () => {
-  let component: TypographyComponent;
-  let fixture: ComponentFixture<TypographyComponent>;
+describe('AddMenuDialogComponent', () => {
+  let component: AddMenuDialogComponent;
+  let fixture: ComponentFixture<AddMenuDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TypographyComponent ]
+      declarations: [ AddMenuDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TypographyComponent);
+    fixture = TestBed.createComponent(AddMenuDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

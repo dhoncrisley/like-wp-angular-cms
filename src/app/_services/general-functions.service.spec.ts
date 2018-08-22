@@ -1,6 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
 
-import { GeneralFunctionsService } from './general-functions.service';
+
 
 describe('GeneralFunctionsService', () => {
   beforeEach(() => {

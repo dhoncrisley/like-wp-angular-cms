@@ -1,6 +1,5 @@
 import {
-    Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef,
-    ComponentFactory,
+    Component, ViewChild, ViewContainerRef, ComponentFactoryResolver,
     OnInit
 } from '@angular/core';
 
@@ -8,7 +7,8 @@ import 'rxjs/add/operator/filter';
 
 
 import { HomeComponent } from '../site-templates/home/home.component';
-import { GeneralFunctionsService } from '../../general-functions.service';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
+
 
 
 @Component({

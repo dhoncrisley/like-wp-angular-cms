@@ -14,14 +14,16 @@
 }
 .manage-hover-buttons{
     display: none;
-    background: #00000050;
+    border-radius: 3px;
+    
+    background: #00000026;
     position: absolute;
     width: 100%;
     height: 100%;
     padding: 10px;
     
 }
-.widget:hover{
+.widget:hover, .menu-item:hover{
     .manage-hover-buttons{
         display: block;
     }
@@ -34,10 +36,24 @@
     i:hover{
         transition: .25s;
         color: rgb(231, 231, 231);
-        text-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+        text-shadow: 0 3px 4px #00000026;
     }
+    border-radius: 3px;
     position: absolute;
     right: 10px;
     color: white;
     top: 10px;
+}
+.menu-item{
+    //padding: 10px;
+    h4{
+        margin: 10px;
+        font-weight: 600;
+    }
+}
+.menu-item:hover{
+    cursor: -webkit-grab;
+}
+.menu-item:active{
+    cursor: -webkit-grabbing;
 }

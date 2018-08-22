@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import * as removeAccent from 'remove-accents'
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable, Subscription } from 'rxjs';
-import { AngularFireAuth } from '../../node_modules/angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 declare var $: any;
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ declare var $: any;
 export class GeneralFunctionsService {
 
 
-  constructor(private _afAuth: AngularFireAuth,private _afs: AngularFirestore) { }
+  constructor(private _afAuth: AngularFireAuth, private _afs: AngularFirestore) { }
 
   public replaceSpecialChars(string) {
     var oldString = string ? string : '';
@@ -20,37 +21,59 @@ export class GeneralFunctionsService {
     return newString
   }
 
-
-/*   public getDoc(where, condition, value): any {
-    var data
-    this._afs.collection('posts').ref.where('post_author', '==', 'test admin').get().then((res) => {
-
-      res.forEach(result => {
-        data = result.data()
-
-      }, err => console.log(err))
-    }).then(res => {
-
-      return data;
+  async getAdminName() {
+    var userName = await new Promise((resolve, reject) => {
+      this._afAuth.user.subscribe(res => {
+        resolve(res.displayName);
+      })
     });
-  } */
+
+
+    return userName;
+
+  }
+  async getImages() {
+    var imagesRef;
+    imagesRef = await new Promise((resolve, reject) => {
+      this._afs.collection('postMedia').valueChanges().subscribe(res => {
+        resolve(res);
+      })
+    });
+
+    return 'Admin Name';
+  }
+
+  /*   public getDoc(where, condition, value): any {
+      var data
+      this._afs.collection('posts').ref.where('post_author', '==', 'test admin').get().then((res) => {
+  
+        res.forEach(result => {
+          data = result.data()
+  
+        }, err => console.log(err))
+      }).then(res => {
+  
+        return data;
+      });
+    } */
   public checkLogin() {
     return this._afAuth.authState.subscribe(res => {
+      console.log(res);
       return res
-    }, error =>{
+    }, error => {
       return error
     })
 
   }
-  public logout(): Promise<any>{
-    return this._afAuth.auth.signOut().then(res =>{
+  public logout(): Promise<any> {
+    return this._afAuth.auth.signOut().then(res => {
       return res;
-    }, error =>{
+    }, error => {
       return error;
     });
   }
 
-  showNotification(color, align, message) {
+  showNotification(color: string, align, message) {
     const type = ['', 'info', 'success', 'warning', 'danger'];
 
     //const color = Math.floor((Math.random() * 4) + 1);
@@ -60,7 +83,7 @@ export class GeneralFunctionsService {
       message: message
 
     }, {
-        type: type[color],
+        type: color,
         timer: 4000,
         placement: {
           from: 'top',
@@ -90,7 +113,7 @@ export class GeneralFunctionsService {
     return this._afs;
   }
   getMenuItems() {
-    const menu = this._afs.collection('menu').valueChanges();
+    const menu = this._afs.collection('navMenu').valueChanges();
     return menu;
   }
   public getConfigs() {

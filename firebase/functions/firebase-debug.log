@@ -1,0 +1,32 @@
+[debug] [2018-08-17T17:36:57.649Z] ----------------------------------------------------------------------
+[debug] [2018-08-17T17:36:57.652Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\HDBRDev\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-08-17T17:36:57.652Z] CLI Version:   4.1.1
+[debug] [2018-08-17T17:36:57.652Z] Platform:      win32
+[debug] [2018-08-17T17:36:57.652Z] Node Version:  v8.11.3
+[debug] [2018-08-17T17:36:57.653Z] Time:          Fri Aug 17 2018 14:36:57 GMT-0300 (Hora oficial do Brasil)
+[debug] [2018-08-17T17:36:57.653Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-08-17T17:36:57.666Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-17T17:36:57.667Z] > authorizing via signed-in user
+[debug] [2018-08-17T17:36:57.670Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dotti-e8d92  
+ 
+[debug] [2018-08-17T17:36:58.787Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-17T17:36:58.788Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dotti-e8d92/tokens  
+ 
+[debug] [2018-08-17T17:36:59.885Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-17T17:36:59.886Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dotti-e8d92  
+ 
+[debug] [2018-08-17T17:37:01.232Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\HDBRDev\Documents\like_wp_dashboard\firebase'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-08-17T17:37:02.235Z] Fetching environment
+[debug] [2018-08-17T17:37:02.238Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/612121511551:getServerAppConfig  
+ 
+[debug] [2018-08-17T17:37:03.068Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-17T17:37:03.068Z] Starting @google-cloud/functions-emulator
+[debug] [2018-08-17T17:37:05.614Z] Parsing function triggers
+[info] +  functions: uploadImage: http://localhost:5000/dotti-e8d92/us-central1/uploadImage
+[info] +  functions: deleteImage: http://localhost:5000/dotti-e8d92/us-central1/deleteImage
+[info] +  functions: loadImages: http://localhost:5000/dotti-e8d92/us-central1/loadImages

@@ -5,7 +5,8 @@ import 'rxjs/add/operator/map';
 import { Post } from '../models/Post.model';
 import { Observable } from 'rxjs/Observable';
 import { Category } from '../models/category.model';
-import { GeneralFunctionsService } from 'app/general-functions.service';
+import { GeneralFunctionsService } from 'app/_services/general-functions.service';
+
 
 
 @Component({

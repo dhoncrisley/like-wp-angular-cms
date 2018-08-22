@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Novo Widget</h1>
+<div mat-dialog-content>
+
+  <p>Escolha tipo de link</p>
+  <mat-form-field>
+    <mat-select [(ngModel)]="tab" (ngModelChange)="typeChanged($event)" placeholder="Selecione o tipo">
+      <mat-option value="post">Post</mat-option>
+      <mat-option value="page">Página </mat-option>
+      <mat-option value="category">Categoria </mat-option>
+      <mat-option value="tag">Tag</mat-option>
+      <mat-option value="custom">Link Personalizado </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'post'" class="posts-container">
+      <mat-radio-group [(ngModel)]="selectedPost" (ngModelChange)="typeChanged($event, selectedPost)">
+        <div *ngFor="let post of posts | async">
+          <mat-radio-button [value]="post"><h4>{{post.post_title}}</h4></mat-radio-button>
+          <br/>
+        </div>
+        <!-- <mat-radio-button value="2">Option 2</mat-radio-button> -->
+      </mat-radio-group>
+    </div>
+    <div *ngSwitchCase="'page'">
+      page temp
+    </div>
+    <div *ngSwitchCase="'category'">
+      cat temp
+    </div>
+    <div *ngSwitchCase="'tag'">
+      tag temp
+    </div>
+    <div *ngSwitchCase="'custom'">
+      <mat-form-field>
+        <input required matInput [(ngModel)]="data.name" type="text" placeholder="Nome">
+      </mat-form-field>
+      <h6>Tipo de Link<br/>
+      </h6>
+      <mat-radio-group [(ngModel)]="data.customType">
+        <mat-radio-button value="route">Rota </mat-radio-button>
+        <br>
+        <mat-radio-button value="link">Externo </mat-radio-button>
+
+      </mat-radio-group>
+      <div class="tabs-selection">
+
+      </div>
+      <mat-form-field *ngIf="data.customType">
+        <input matInput [(ngModel)]="data.url" placeholder='Link/Rota (ex: "http://www.example.com", "post/nome-do-post")'>
+      </mat-form-field>
+    </div>
+    <div *ngSwitchDefault>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button [disabled]="!data.name || !data.url" mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
