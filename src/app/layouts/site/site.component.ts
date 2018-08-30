@@ -44,7 +44,7 @@ export class SiteComponent implements OnInit {
             .filter((route) => route.outlet === 'primary')
             .mergeMap((route) => route.data)
             .subscribe((event) => {
-                console.log(event);
+                //console.log(event);
                 this.configs.subscribe(res => {
                     this._document.getElementById('appFavicon').setAttribute('href', res.favicon);
                     this._titleService.setTitle(res.blogname + ' - ' + event['title'])

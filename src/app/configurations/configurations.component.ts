@@ -10,7 +10,7 @@ import { GeneralFunctionsService } from 'app/_services/general-functions.service
 })
 export class ConfigurationsComponent implements OnInit {
   editing = false;
-  model; /* = {blogname: '', siteurl: '', home: '', blogdescription: ''}; */
+  model: any = {blogname: '', siteurl: '', home: '', blogdescription: ''};
   loading: boolean;
   constructor(private _gFunctions: GeneralFunctionsService) { }
 
@@ -19,7 +19,7 @@ export class ConfigurationsComponent implements OnInit {
       .doc('general')
       .valueChanges()
       .subscribe(res => this.model = res);
-    console.log(this.model);
+   // console.log(this.model);
   }
   saveConfig() {
     this.loading = true;

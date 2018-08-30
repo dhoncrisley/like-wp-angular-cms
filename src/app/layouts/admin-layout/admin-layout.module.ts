@@ -40,7 +40,9 @@ import {
   MatIconModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatDividerModule
+  MatDividerModule,
+  MatTreeModule,
+  MatChipsModule
 } from '@angular/material';
 import { SafeCssPipe } from 'app/_pipes/safe-css.pipe';
 import { SafeHtmlPipe } from 'app/_pipes/safe-html.pipe';
@@ -94,6 +96,8 @@ export const environment = {
     MatToolbarModule,
     MatSidenavModule,
     MatDividerModule,
+    MatTreeModule,
+    MatChipsModule,
   ],
   declarations: [
     PostEditCreateComponent,

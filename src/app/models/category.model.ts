@@ -1,8 +1,8 @@
 export class Category {
-    cat_id: string;
-    cat_name?: string;
-    cat_slug?: string;
-    cat_active: boolean;
+    id: string;
+    name?: string;
+    slug?: string;
+    active: boolean;
     /* date?: Date;
     date_gmt?: Date;
     tags: Array<any>;

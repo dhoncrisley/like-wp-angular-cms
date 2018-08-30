@@ -10,6 +10,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FirestorePagerService } from 'app/_services/firestore-pager.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { FirebaseError } from 'firebase';
+import { Tag } from 'app/post-edit-create/post-edit-create.component';
 
 
 
@@ -33,9 +34,9 @@ const ELEMENT_DATA = [
 export class PostsComponent implements AfterViewInit, OnInit {
   postsRef: any;
   posts;
-  catsRef: any;
   pageEvent;
   categories: Array<Category>;
+  tags: Array<Tag>;
   displayedColumns: string[] = ['check', 'thumb', 'title', 'author', 'categories', 'tags', 'date', 'modified', 'edit'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   selection = new SelectionModel<Post>(true, []);
@@ -91,18 +92,33 @@ export class PostsComponent implements AfterViewInit, OnInit {
     ngOnInit() {
       this._pager.init('posts', 'date', { reverse: true, limit: 10 });
 
-    this.catsRef = this._afs.collection('categories')
+    this._afs.collection('categories')
       .valueChanges()
       .subscribe((cb: Array<Category>) => {
         this.categories = cb;
+        return cb
+      })
+    this._afs.collection('tags')
+      .valueChanges()
+      .subscribe((cb: Array<Tag>) => {
+        this.tags = cb;
+        console.log(cb);
         return cb
       })
   }
  
   getCategory(category): any {
     try {
-      const catName = this.categories.filter(item => item.cat_id == category);
+      const catName = this.categories.filter(item => item.id == category);
       return catName[0];
+    } catch (error) {
+      return 'excluída';
+    }
+  }
+  getTag(tag): any {
+    try {
+      const tagName = this.tags.filter(item => item.id == tag);
+      return tagName[0];
     } catch (error) {
       return 'excluída';
     }

@@ -1,87 +1,150 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <mat-card class="col-md-4">
-                <mat-card-header>
-                    <mat-card-title>Widgets</mat-card-title>
-                    <mat-card-subtitle>Adicione widgets a sua sidebar</mat-card-subtitle>
-                </mat-card-header>
-                <mat-divider></mat-divider>
+            <div class="col-md-4">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h4>Widgets</h4>
+                        </mat-card-title>
+                        <mat-card-subtitle>Adicione widgets a sua sidebar</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
 
-                <mat-card-content>
+                    <mat-card-content>
 
-                    <mat-card class="widget" *ngFor="let widget of activeWidgets | async">
-                        <div class="manage-hover-buttons">
-                            <div class="manage-buttons">
-                                <a >
-                                    <mat-icon matTooltip="Remover" color="warn" [matTooltipPosition]="'above'" (click)="removeWidget(widget)">close</mat-icon>
-                                </a>
-                                <a >
-                                    <mat-icon matTooltip="Editar" color="primary" [matTooltipPosition]="'above'" (click)="editWidget(widget)">edit</mat-icon>
-                                </a>
+                        <mat-card class="widget" *ngFor="let widget of activeWidgets | async">
+                            <div class="manage-hover-buttons">
+                                <div class="manage-buttons">
+                                    <button mat-icon-button>
+                                        <mat-icon matTooltip="Remover" color="warn" [matTooltipPosition]="'above'" (click)="removeWidget(widget)">close</mat-icon>
+                                    </button>
+                                    <button mat-icon-button>
+                                        <mat-icon matTooltip="Editar" color="primary" [matTooltipPosition]="'above'" (click)="editWidget(widget)">edit</mat-icon>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div [innerHtml]="widget.html | safeHtml">
-                        </div>
-                    </mat-card>
-                </mat-card-content>
-                <mat-divider></mat-divider>
-                <mat-card-actions>
-                    <button mat-button color="primary" (click)="openDialog()"> <i class="material-icons">add</i> </button>
-                    <!-- <button>LIKE</button>
-                    <button mat-button>SHARE</button> -->
-                </mat-card-actions>
-                <!-- <progress   class="progress-bar bg-warning" >0%</progress> -->
+                            <div [innerHtml]="widget.html | safeHtml">
+                            </div>
+                        </mat-card>
+                    </mat-card-content>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions>
+                        <button mat-button color="primary" (click)="openDialog()"> <i class="material-icons">add</i> </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-md-4">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h4>Navbar</h4>
+                        </mat-card-title>
+                        <mat-card-subtitle>Adicione links a sua navbar</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
 
-            </mat-card>
+                    <mat-card-content>
+
+                        <div >
+                            <mat-card class="menu-item" *ngFor="let item of menus | async">
+                                <!-- <div class="card "> -->
+                                <div class="manage-hover-buttons">
+                                    <div class="manage-buttons">
+                                        <button mat-icon-button>
+                                            <mat-icon matTooltip="Remover" color="warn" [matTooltipPosition]="'above'" (click)="removeNavItem(item)">close</mat-icon>
+                                        </button>
+                                        <button mat-icon-button>
+                                            <mat-icon matTooltip="Editar" color="primary" [matTooltipPosition]="'above'" (click)="editNavItem(item)">edit</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <h4> {{item.name}}</h4>
+                                <!-- </div> -->
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions>
+                        <button mat-button color="primary" (click)="addNavItem()"> <i class="material-icons">add</i> </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
             <!-- <div class="col-md-4">
                 <div class="card">
-                    <div class="card-body">
-
-                    </div>
-                </div>
-            </div> -->
-            <div class="col-md-4">
-                <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">Navbar</h4>
-                        <p class="card-category">Adicione links a sua navbar</p>
+                        <h4 class="card-title"></h4>
+                        <p class="card-category"></p>
                     </div>
                     <div class="card-body">
                         <button class="btn add" (click)="addNavItem()">
                             <i class="material-icons">add</i>
                         </button>
-                        <div dragula="DRAG_NAV" [(dragulaModel)]="navItems">
-                            <div class="card menu-item" *ngFor="let item of menus | async">
-                                <div class="manage-hover-buttons">
-                                    <div class="manage-buttons">
-                                        <i class="material-icons" matTooltip="Remover" [matTooltipPosition]="'above'" (click)="removeNavItem(item)">close</i>
-                                        <i class="material-icons" matTooltip="Editar" [matTooltipPosition]="'above'" (click)="editNavItem(item)">edit</i>
-                                    </div>
+
+                        <div>
+                            <div class="manage-hover-buttons">
+                                <div class="manage-buttons">
+                                    <i class="material-icons" matTooltip="Remover" [matTooltipPosition]="'above'" (click)="removeNavItem(item)">close</i>
+                                    <i class="material-icons" matTooltip="Editar" [matTooltipPosition]="'above'" (click)="editNavItem(item)">edit</i>
                                 </div>
-                                <h4> {{item.name}}</h4>
                             </div>
+                            <h4> {{item.name}}</h4>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Rodapé</h4>
-                        <p class="card-category">Informações do rodapé</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn add">
-                            <i class="material-icons">add</i>
-                        </button>
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h4>Rodapé</h4>
+                        </mat-card-title>
+                        <mat-card-subtitle>Informações do rodapé</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+
+                    <mat-card-content>
+                        <mat-tree dragula="DRAG_NAV" [(dragulaModel)]="navItems" [dataSource]="dataSource" [treeControl]="treeControl">
+                            <mat-tree-node  *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                                <button mat-icon-button disabled></button>
+                                {{node.filename}} : {{node.type}}
+                            </mat-tree-node>
+
+                            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                                    <mat-icon class="mat-icon-rtl-mirror">
+                                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                    </mat-icon>
+                                </button>
+                                {{node.filename}} : {{node.type}}
+                            </mat-tree-node>
+                        </mat-tree>
+                    </mat-card-content>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions>
+                        <button mat-button color="primary"> <i class="material-icons">add</i> </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+        <!-- <div class="col-md-4">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Rodapé</h4>
+                    <p class="card-category">Informações do rodapé</p>
+                </div>
+                <div class="card-body">
+                    <button class="btn add">
+                        <i class="material-icons">add</i>
+                    </button>
 
 
 
-                    </div>
                 </div>
             </div>
+        </div> -->
 
-        </div>
     </div>
+
 </div>

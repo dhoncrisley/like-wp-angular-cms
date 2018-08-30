@@ -128,54 +128,54 @@ export class PageEditCreateComponent implements OnInit {
       console.log(err)
     });
     this.catForm = this._fb.group({
-      cat_id: this._fb.array([])
+      id: this._fb.array([])
     });
     this.dbCategories = this.catRef.valueChanges();
   }
   saveCategory() {
     const id = this._afs.createId();
     var category = {
-      cat_id: id,
-      cat_name: this.newCategory,
-      cat_slug: this._gFunctions.replaceSpecialChars(this.newCategory),
-      cat_active: true
+      id: id,
+      name: this.newCategory,
+      slug: this._gFunctions.replaceSpecialChars(this.newCategory),
+      active: true
     }
     this.catRef.doc(id).set(category);
     this.newCategory = undefined;
   }
   deleteCategory(category: Category) {
-    this._afs.collection("categories").doc(category.cat_id).update({ cat_active: false }).then(() => {
-      this._gFunctions.showNotification('success', 'center', "Categoria " + category.cat_name + " Deletada com sucesso!");
+    this._afs.collection("categories").doc(category.id).update({ active: false }).then(() => {
+      this._gFunctions.showNotification('success', 'center', "Categoria " + category.name + " Deletada com sucesso!");
 
       console.log("Document successfully deleted!");
 
     }).catch(error => {
-      this._gFunctions.showNotification('danger', 'center', "Erro ao deletar a categoria " + category.cat_name + ", tente novamente.");
+      this._gFunctions.showNotification('danger', 'center', "Erro ao deletar a categoria " + category.name + ", tente novamente.");
     
       console.error("Error removing document: ", error);
     });
   }
   /* TODO: Consertar a seleção de categorias que ao editar um post 
   /quando selecionar uma categoria e já existiam categorias já definidas todas são desmarcadas exceto a que foi recentemente marcada */
-  onCatChange(cat_id: string, isChecked: boolean) {
+  onCatChange(id: string, isChecked: boolean) {
 
-    var catFormArray = <FormArray>this.catForm.controls.cat_id;
+    var catFormArray = <FormArray>this.catForm.controls.id;
 
     // console.log(catFormArray.controls[0].setValue(['asd', 'qwe']));
 
 
     if (isChecked) {
       //emailFormArray;
-      catFormArray.push(new FormControl(cat_id))
+      catFormArray.push(new FormControl(id))
       this.postCategories = catFormArray.value;
     } else {
-      let index = catFormArray.controls.findIndex(x => x.value == cat_id)
+      let index = catFormArray.controls.findIndex(x => x.value == id)
 
       if (index !== -1) {
         //this.data.splice(index, 1);
       }
       catFormArray.removeAt(index);
-      this.postCategories = this.catForm.value.cat_id;
+      this.postCategories = this.catForm.value.id;
 
     }
   }

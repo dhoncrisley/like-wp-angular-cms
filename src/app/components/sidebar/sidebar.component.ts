@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/configurations', title: 'Configurations',  icon:'settings', class: '' },
     { path: '/admin/posts', title: 'Posts',  icon:'create', class: '' },
     { path: '/admin/pages', title: 'Páginas',  icon:'insert_drive_file', class: '' },
-    { path: '/admin/layout', title: 'Layout',  icon:'developer_board', class: '' },
+    { path: '/admin/layout', title: 'Layout',  icon:'view_compact', class: '' },
     // { path: '/admin/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/admin/notifications', title: 'Notifications',  icon:'notifications', class: '' },
 ];

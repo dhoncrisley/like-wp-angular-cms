@@ -82,7 +82,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   
   getCategory(category): any {
     try {
-      const catName = this.categories.filter(item => item.cat_id == category);
+      const catName = this.categories.filter(item => item.id == category);
       return catName[0];
     } catch (error) {
       return 'excluída';
