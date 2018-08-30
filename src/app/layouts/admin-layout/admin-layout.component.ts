@@ -1,13 +1,15 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import 'rxjs/add/operator/filter';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 
 import { AngularFireAuth } from '../../../../node_modules/angularfire2/auth';
 import { GeneralFunctionsService } from 'app/_services/general-functions.service';
+import { Title, DOCUMENT } from '@angular/platform-browser';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'app-admin-layout',
@@ -23,18 +25,36 @@ export class AdminLayoutComponent implements OnInit {
 
     constructor(private _gFunctions: GeneralFunctionsService,
         public location: Location,
+        @Inject(DOCUMENT) private _document: HTMLDocument,
         private _router: Router,
-        private _afAuth: AngularFireAuth) {
+        private _activatedRoute: ActivatedRoute,
+        private _afAuth: AngularFireAuth,
+        private _titleService: Title) {
         this._afAuth.authState.subscribe(res => {
             if (!res) {
                 this._router.navigateByUrl('admin/login');
                 this.logged = false;
-               // console.log(this.logged)
+                // console.log(this.logged)
             } else {
                 //console.log(this.logged)
                 this.logged = true;
             }
         })
+        this._router.events
+            .filter((event) => event instanceof NavigationEnd)
+            .map(() => this._activatedRoute)
+            .map((route) => {
+                while (route.firstChild) route = route.firstChild;
+                return route;
+            })
+            .filter((route) => route.outlet === 'primary')
+            .mergeMap((route) => route.data)
+            .subscribe((event) => {
+                //console.log(event);
+                //this._document.getElementById('appFavicon').setAttribute('href', '../../../assets/img/favicon.svg');
+                this._titleService.setTitle('Dashboard - ' + event['title'])
+            });
+
     }
 
     ngOnInit() {

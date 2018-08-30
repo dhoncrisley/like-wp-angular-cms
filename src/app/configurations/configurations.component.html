@@ -27,9 +27,14 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Url do Site" type="text" [disabled]="!editing" [(ngModel)]="model.siteurl" name="url">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Favicon do Site" type="text" [disabled]="!editing" [(ngModel)]="model.favicon" name="favicon">
                   </mat-form-field>
                 </div>
               </div>
@@ -82,7 +87,11 @@
               <button mat-raised-button type="submit" *ngIf="!editing" (click)="editConfig()" class="btn btn-danger pull-right">Editar</button>
               <button mat-raised-button type="submit" *ngIf="editing" (click)="saveConfig()" class="btn btn-success pull-right">
                 <span *ngIf="!loading">Salvar</span>
-                <app-loader *ngIf="loading"></app-loader>
+                <span *ngIf="loading">
+                    Salvando
+
+                  <mat-progress-bar  mode="indeterminate" color="accent"></mat-progress-bar>
+                </span>
               </button>
               <button mat-raised-button type="submit" *ngIf="editing" (click)="cancelConfig()" class="btn pull-right">Cancelar</button>
               <div class="clearfix"></div>

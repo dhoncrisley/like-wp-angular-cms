@@ -14,27 +14,26 @@
                 <h3 class="col-md-12">{{title}}</h3>
                 <h3 class="col-md-12">{{downloadURL | async}}</h3>
                 <form>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <mat-form-field class="example-full-width">
                             <input matInput [(ngModel)]="postTitle" [ngModelOptions]="{standalone: true}" placeholder="Título">
                         </mat-form-field>
-                        <!-- <label for="title">Título</label>
-                        <input type="text" class="form-control" id="title" required > -->
                     </div>
 
                     <textarea id="content-area" class="form-group col-lg-12" [froalaEditor]="options" [(froalaModel)]="twoWayContent" [(ngModel)]="content"
                         required [ngModelOptions]="{standalone: true}"></textarea>
 
-
-                    <button type="submit" (click)="savePost()" class="btn btn-success">Salvar</button>
-
+                    <div class="button-row">
+                        <button mat-raised-button color="primary" class="float-right" (click)="savePost()">Salvar</button>
+                        <button mat-raised-button class="float-right" (click)="discartPost()">Cancelar</button>
+                    </div>
                 </form>
 
 
             </div>
             <div class="col-lg-3 mr-auto ">
 
-                <div class="row side-panel">
+                <mat-card class="row side-panel">
                     <div class="col-md-12">
                         <h6>Categorias</h6>
                         <form>
@@ -51,14 +50,9 @@
                             <ul id="categories-panel">
                                 <li *ngFor="let category of dbCategories | async">
                                     <div *ngIf="(category.cat_active)" class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" (change)="onCatChange(category.cat_id, $event.target.checked)" [checked]="checkCategory(category.cat_id)"
-                                                type="checkbox">
-                                            <span class="form-check-sign ">
-                                                <span class="check text-danger"></span>
-                                            </span>
+                                        <mat-checkbox (change)="onCatChange(category.cat_id, $event.checked)" [checked]="checkCategory(category.cat_id)" type="checkbox">
                                             {{category.cat_name}}
-                                        </label>
+                                        </mat-checkbox>
                                         <i (click)="deleteCategory(category)" class="material-icons mr-auto delete-button">close</i>
                                     </div>
                                 </li>
@@ -68,8 +62,8 @@
                         </form>
                     </div>
 
-                </div>
-                <div class="row side-panel">
+                </mat-card>
+                <mat-card class="row side-panel">
                     <div class="col-md-12">
 
                         <h6>Tags</h6>
@@ -95,34 +89,39 @@
 
                         </ul>
                     </div>
-                </div>
-                <div class="row side-panel">
-                    <div class="col-md-12">
+                </mat-card>
+                <mat-card class="row side-panel">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image">
+                            <mat-icon>insert_photo</mat-icon>
 
-                        <h6>Thumbnail</h6>
+                        </div>
+                        <mat-card-title>Thumbnail</mat-card-title>
+                        <mat-card-subtitle>Envie a imagem de capa do seu post</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <mat-card-content>
                         <ul>
                             <li>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <!--  -->
-                                        <input type="file" accept="image/*" (change)="fileChanged($event)" class="custom-file-input btn " id="inputGroupFile">
-                                        <label class="custom-file-label" for="inputGroupFile">Escolher</label>
-                                    </div>
-                                    <!-- <div class="input-group-append">
-                                        <button class="btn btn-outline-success btn-sm" type="button">Enviar</button>
-                                    </div> -->
-                                </div>
+                                <button mat-raised-button type="button" md-button (click)="imgFileInput.click()">Selecionar</button>
+                                <button mat-icon-button *ngIf="uploadComplete" disabled>
+                                    <mat-icon style="color: rgb(34, 134, 34)">checkmark</mat-icon>
+                                </button>
+
+                                <input hidden type="file" #imgFileInput accept="image/*" (change)="fileChanged($event)">
+                            </li>
+                            <li *ngIf="uploading">
+                                <mat-progress-bar mode="determinate" [value]="(uploadPercent | async)"></mat-progress-bar>
                             </li>
                         </ul>
-                        <progress max="100" *ngIf="uploading" class="progress-bar bg-warning" [value]="(uploadPercent | async)">0%</progress>
-                        <h3>
-                            <i *ngIf="uploadComplete" class="material-icons mr-auto">checkmark</i>
-                        </h3>
                         <div class="result" *ngIf="thumbURL">
                             <img class="thumbnail" [src]="thumbURL" target="_blank">
                         </div>
-                    </div>
-                </div>
+                    </mat-card-content>
+
+                    <!-- <progress   class="progress-bar bg-warning" >0%</progress> -->
+
+                </mat-card>
 
 
 

@@ -10,9 +10,11 @@ export const SiteRoutes: Routes = [
           path: '',
           loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
         }]}, */
-    { path: '', component: SiteComponent, children:[{
-        path: '', component: HomeComponent},
-        { path: 'post/:id', component: SingleComponent },
-    ] }
+    {
+        path: '', component: SiteComponent, children: [
+            { path: '', component: HomeComponent, data: { title: 'Home' } },
+            { path: 'post/:id', component: SingleComponent, data: { title: 'Post' } },
+        ]
+    }
 ];
 

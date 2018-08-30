@@ -1,3 +1,115 @@
-<p>
-  pages works!
-</p>
+<div class="main-content" style="min-height: calc(100vh - 155px);">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="button-row">
+                        <button mat-raised-button color="primary" (click)="newPage()">+ Nova Página</button>
+                        <button mat-raised-button (click)="showCategories()">Categorias</button>
+                        <!-- <button mat-raised-button (click)="showtags()">Tags</button> -->
+                    </div>
+                    <div class="content" scrollable (scrollPosition)="scrollHandler($event)">
+    
+                        <table mat-table [dataSource]="_pager.data | async" class="mat-elevation-z8">
+    
+                            <!-- <ng-container matColumnDef="check">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container> -->
+                            <!-- <ng-container matColumnDef="check">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox></mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let page">
+                                    <mat-checkbox></mat-checkbox>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="thumb">
+                                <th mat-header-cell *matHeaderCellDef> <i class="material-icons">insert_photo</i> </th>
+                                <td mat-cell *matCellDef="let page">
+                                    <img class="page-mini-thumb" *ngIf="page.thumb" [src]="page.thumb" alt="">
+                                    <i *ngIf="!page.thumb" class="material-icons">insert_photo</i>
+                                </td>
+                            </ng-container> -->
+    
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef> Título </th>
+                                <td mat-cell *matCellDef="let page"> <a target="_blank" href="http://localhost:4200/page/{{page.name}}">{{page.title}}</a>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="author">
+                                <th mat-header-cell *matHeaderCellDef> Autor </th>
+                                <td mat-cell *matCellDef="let page"> <a routerLink="/admin/users/{{page.author}}">{{page.author}}</a>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="categories">
+                                <th mat-header-cell *matHeaderCellDef> Categorias </th>
+                                <td mat-cell *matCellDef="let page">
+                                    <a *ngFor="let category of page.categories" routerLink="/admin/categories/{{getCategory(category).cat_slug}}">{{getCategory(category).cat_name}}
+                                    </a>
+                                </td>
+                            </ng-container>
+    
+                            <!-- <ng-container matColumnDef="tags">
+                                <th mat-header-cell *matHeaderCellDef> Tags </th>
+                                <td mat-cell *matCellDef="let page">
+                                    <a *ngFor="let tag of page.tags">{{tag}} </a>
+                                </td>
+                            </ng-container> -->
+    
+                            <ng-container matColumnDef="date">
+                                <th mat-header-cell *matHeaderCellDef> Criado em </th>
+                                <td mat-cell *matCellDef="let page">
+                                    {{page.date | date:'dd/LL/yyyy - HH:mm'}}
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="modified">
+                                <th mat-header-cell *matHeaderCellDef> Modificado em: </th>
+                                <td mat-cell *matCellDef="let page">
+                                    {{page.modified | date:'dd/LL/yyyy - HH:mm'}}
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="edit">
+                                <th mat-header-cell *matHeaderCellDef> Editar </th>
+                                <td mat-cell *matCellDef="let page; let last = last">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item routerLink="{{page.id}}">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Editar</span>
+                                        </button>
+                                        <button mat-menu-item (click)="deletePage(page)">
+                                            <mat-icon>close</mat-icon>
+                                            <span>Apagar</span>
+                                        </button>
+                                    </mat-menu>
+                                    <!-- <div *ngIf="last">{{last ?  setLastChild(page) : ''}} </div> -->
+                                </td>
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                    <mat-progress-spinner *ngIf="_pager.loading | async" class="example-margin" color="warn" mode="indeterminate">
+                    </mat-progress-spinner>
+                    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" (page)="pageEventChange($event)" showFirstLastButtons></mat-paginator> -->
+    
+    
+                    <h4 *ngIf="pages | async as page"> <label *ngIf="!page">Nenhum page encontrado</label> </h4>
+                </div>
+            </div>
+        </div>
+    </div>

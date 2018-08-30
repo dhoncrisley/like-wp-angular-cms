@@ -1,4 +1,4 @@
-export class Post {
+export class Page {
     id: string;
     author?: number;
     name?: string;

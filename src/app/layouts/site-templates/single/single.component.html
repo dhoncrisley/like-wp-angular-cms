@@ -1,7 +1,13 @@
-<h3>
-    {{(postData)?.post_title}}
-</h3>
-<div [innerHtml]="(postData)?.post_content">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
 
-
+            <h2> {{(postData)?.title}} </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12 col-xl-12">
+            <div [innerHtml]="(postData)?.content"> </div>
+        </div>
+    </div>
 </div>

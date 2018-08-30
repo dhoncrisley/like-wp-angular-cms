@@ -6,7 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoginComponent } from 'app/components/login/login.component';
-import { MatInputModule } from '../../../node_modules/@angular/material';
+import { MatInputModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatButtonModule } from '../../../node_modules/@angular/material';
 import { FormsModule } from '../../../node_modules/@angular/forms';
 // import { LoginComponent } from './login/login.component';
 
@@ -15,7 +15,10 @@ import { FormsModule } from '../../../node_modules/@angular/forms';
     CommonModule,
     RouterModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
   ],
   declarations: [
     FooterComponent,

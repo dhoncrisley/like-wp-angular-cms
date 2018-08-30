@@ -1,23 +1,23 @@
 <div class="logo">
     <a routerLink="/admin" class="simple-text">
         <div class="logo-img">
-            <img src="/assets/img/angular2-logo-red.png" />
+            <img src="/assets/img/favicon.png" />
         </div>
-        Admin
+        Dashboard
     </a>
 </div>
 <div class="sidebar-wrapper">
     <div *ngIf="isMobileMenu()">
         <form class="navbar-form">
             <span class="bmd-form-group">
-        <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
-          <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
-            <i class="material-icons">search</i>
-            <div class="ripple-container"></div>
-          </button>
-        </div>
-      </span>
+                <div class="input-group no-border">
+                    <input type="text" value="" class="form-control" placeholder="Search...">
+                    <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                    </button>
+                </div>
+            </span>
         </form>
         <ul class="nav navbar-nav nav-mobile-menu">
             <li class="nav-item">
@@ -28,7 +28,7 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">notifications</i>
                     <span class="notification">5</span>
@@ -43,7 +43,7 @@
                     <a class="dropdown-item" href="#">Another Notification</a>
                     <a class="dropdown-item" href="#">Another One</a>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="#pablo">
                     <i class="material-icons">person</i>
@@ -54,12 +54,35 @@
             </li>
         </ul>
     </div>
-    <ul class="nav">
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link" [routerLink]="[menuItem.path]">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p>{{menuItem.title}}</p>
+    <mat-list>
+        <h3 mat-subheader>Folders</h3>
+        <mat-list-item class="nav-item" *ngFor="let menuItem of menuItems">
+            <a mat-button routerLinkActive="active" (click)="goTo(menuItem.path)">
+                <mat-icon mat-list-icon>{{menuItem.icon}}</mat-icon>
+                {{menuItem.title}}</a>
+            <!-- <p mat-line> {{folder.updated | date}} </p> -->
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <!-- <h3 mat-subheader>Notes</h3>
+        <mat-list-item *ngFor="let note of notes">
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h4 mat-line>{{note.name}}</h4>
+            <p mat-line> {{note.updated | date}} </p>
+        </mat-list-item> -->
+    </mat-list>
+
+    <!-- <mat-toolbar>
+        <mat-toolbar-row *ngFor="let menuItem of menuItems">
+            <span>Third Line</span>
+            <span class="example-spacer"></span>
+            <mat-icon> insert_photo </mat-icon>
+            <mat-icon> insert_photo </mat-icon>
+        </mat-toolbar-row>
+        <li >
+            <a class="" [routerLink]="[menuItem.path]">
+                <i class="material-icons"></i>
+                <p></p>
             </a>
         </li>
-    </ul>
+    </mat-toolbar> -->
 </div>

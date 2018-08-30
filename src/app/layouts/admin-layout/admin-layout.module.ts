@@ -31,10 +31,26 @@ import {
   MatCheckboxModule,
   MatRadioModule,
   MatSelectModule,
+  MatCardModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatMenuModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatDividerModule
 } from '@angular/material';
 import { SafeCssPipe } from 'app/_pipes/safe-css.pipe';
 import { SafeHtmlPipe } from 'app/_pipes/safe-html.pipe';
 import { PagesComponent } from '../../pages/pages.component';
+import 'rxjs/add/operator/mergeMap';
+import { ScrollableDirective } from '../../scrolable.directive';
+import { PageEditCreateComponent } from '../../page-edit-create/page-edit-create.component';
+
+
+
 export const environment = {
   production: false,
   firebase: {
@@ -53,9 +69,6 @@ export const environment = {
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatRippleModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -63,21 +76,35 @@ export const environment = {
     MonacoEditorModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase, 'dotti-e8d92'),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+    MatButtonModule,
+    MatDialogModule,
+    MatRippleModule,
     MatInputModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatSelectModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatDividerModule,
   ],
   declarations: [
     PostEditCreateComponent,
+    PageEditCreateComponent,
     DashboardComponent,
     UserProfileComponent,
     PostsComponent,
 
     NotificationsComponent,
     SiteLayoutComponent,
-    LoaderComponent,
+    //LoaderComponent,
     SafeHtmlPipe,
     SafeCssPipe,
     WidgetModalComponent,
@@ -85,6 +112,7 @@ export const environment = {
     AddMenuDialogComponent,
     ConfigurationsComponent,
     PagesComponent,
+    ScrollableDirective,
   ],
   entryComponents: [
     WidgetModalComponent,

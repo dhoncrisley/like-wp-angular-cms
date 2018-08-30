@@ -8,17 +8,19 @@ import { PostEditCreateComponent } from '../../post-edit-create/post-edit-create
 import { SiteLayoutComponent } from '../../site-layout/site-layout.component';
 import { ConfigurationsComponent } from 'app/configurations/configurations.component';
 import { PagesComponent } from 'app/pages/pages.component';
+import { PageEditCreateComponent } from '../../page-edit-create/page-edit-create.component';
 
 
 export const AdminLayoutRoutes: Routes = [
-    { path: '', component: DashboardComponent },
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'user-profile', component: UserProfileComponent },
-    { path: 'posts', component: PostsComponent },
-    { path: 'pages', component: PagesComponent },
-    { path: 'posts/:id', component: PostEditCreateComponent },
-    { path: 'notifications', component: NotificationsComponent },
-    { path: 'layout', component: SiteLayoutComponent },
-    { path: 'configurations', component: ConfigurationsComponent },
+    { path: '', component: DashboardComponent, data: { title: 'Início' }  },
+    { path: 'dashboard', component: DashboardComponent, data: { title: 'Início' } },
+    { path: 'user-profile', component: UserProfileComponent, data: { title: 'Perfil' } },
+    { path: 'posts', component: PostsComponent, data: { title: 'Posts' } },
+    { path: 'pages', component: PagesComponent, data: { title: 'Páginas' } },
+    { path: 'posts/:id', component: PostEditCreateComponent, data: { title: 'Post' } },
+    { path: 'pages/:id', component: PageEditCreateComponent, data: { title: 'Página' } },
+    { path: 'notifications', component: NotificationsComponent, data: { title: 'Notificações' } },
+    { path: 'layout', component: SiteLayoutComponent, data: { title: 'Layout' } },
+    { path: 'configurations', component: ConfigurationsComponent, data: { title: 'Configurações' } },
 
 ];

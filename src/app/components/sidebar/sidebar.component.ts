@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 declare const $: any;
 declare interface RouteInfo {
@@ -12,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/user-profile', title: 'User Profile',  icon:'person', class: '' },
     { path: '/admin/configurations', title: 'Configurations',  icon:'settings', class: '' },
     { path: '/admin/posts', title: 'Posts',  icon:'create', class: '' },
+    { path: '/admin/pages', title: 'Páginas',  icon:'insert_drive_file', class: '' },
     { path: '/admin/layout', title: 'Layout',  icon:'developer_board', class: '' },
     // { path: '/admin/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/admin/notifications', title: 'Notifications',  icon:'notifications', class: '' },
@@ -20,12 +23,12 @@ export const ROUTES: RouteInfo[] = [
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -36,4 +39,7 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+  goTo(path){
+    this._router.navigateByUrl(path)
+  }
 }

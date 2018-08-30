@@ -17,7 +17,7 @@ export class SingleComponent implements OnInit {
 
   private getPostData(_gFunctions: GeneralFunctionsService) {
     this._route.params.subscribe(cb => {
-      _gFunctions.getDb().collection('posts').ref.where('post_name', '==', cb.id).get().then(res => {
+      _gFunctions.getDb().collection('posts').ref.where('name', '==', cb.id).get().then(res => {
         //const data 
         res.forEach(cb => {
           this.postData = cb.data();

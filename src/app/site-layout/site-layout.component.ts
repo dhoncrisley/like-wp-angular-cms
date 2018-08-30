@@ -21,12 +21,11 @@ export class SiteLayoutComponent {
   activeWidgets;
   db: any;
   menus;
+  
   constructor(public dialog: MatDialog,
     private _gFunctions: GeneralFunctionsService,
     private dragulaService: DragulaService) {
-    dragulaService.createGroup("SPILL", {
-      removeOnSpill: true
-    });
+    
 
     this.widgets = this._gFunctions.getDb().collection('widgets').valueChanges();
     this.menus = this._gFunctions.getDb().collection('navMenu').valueChanges();

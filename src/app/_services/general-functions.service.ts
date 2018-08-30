@@ -17,7 +17,7 @@ export class GeneralFunctionsService {
     var oldString = string ? string : '';
     var re = / /g;
     var newString = removeAccent.remove(oldString.replace(re, '-')).toLowerCase();
-    console.log(newString);
+    //console.log(newString);
     return newString
   }
 
@@ -45,7 +45,7 @@ export class GeneralFunctionsService {
 
   /*   public getDoc(where, condition, value): any {
       var data
-      this._afs.collection('posts').ref.where('post_author', '==', 'test admin').get().then((res) => {
+      this._afs.collection('posts').ref.where('author', '==', 'test admin').get().then((res) => {
   
         res.forEach(result => {
           data = result.data()
@@ -105,10 +105,21 @@ export class GeneralFunctionsService {
   public getPosts() {
 
     var posts;
-    posts = this._afs.collection('posts', ref => ref.orderBy('post_date', 'desc')).valueChanges();
+    posts = this._afs.collection('posts', ref => ref.orderBy('date', 'desc')).valueChanges();
 
     return posts;
   }
+  public getPaginatedPosts(limit?) {
+
+    var posts;
+    posts = this._afs.collection('posts', ref => ref
+      .limit(limit? limit : 10)
+      .orderBy('date', 'desc'))
+      .valueChanges();
+
+    return posts;
+  }
+
   public getDb() {
     return this._afs;
   }

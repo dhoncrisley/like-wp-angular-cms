@@ -3,3 +3,36 @@
     height: 75px;
     object-fit: cover;
 }
+
+table {
+    width: 100% !important;
+    overflow: scroll;
+    //max-height: 600px !important;
+}
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+.button-row{
+    margin-bottom: 8px;
+}
+.container-fluid{
+    overflow: auto;
+}
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+    padding: 5px;
+}
+.content{
+    overflow-y: auto;
+    height: 72vh;
+}
+.main-panel .main-content {
+    min-height: calc(100vh - 160px) !important;
+}
+mat-progress-spinner{
+    width: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100px;
+}

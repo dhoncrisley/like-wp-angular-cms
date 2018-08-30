@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { GeneralFunctionsService } from 'app/_services/general-functions.service';
+import { DOCUMENT, Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -16,22 +17,43 @@ export class NavbarComponent implements OnInit {
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
-
-    constructor(private _gFunctions:GeneralFunctionsService,location: Location, private element: ElementRef, private router: Router) {
+    title;
+    constructor(private _gFunctions: GeneralFunctionsService,
+        location: Location,
+        private element: ElementRef,
+        private router: Router,
+        @Inject(DOCUMENT) private _document: HTMLDocument,
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute,
+        private _titleService: Title) {
+        this._router.events
+            .filter((event) => event instanceof NavigationEnd)
+            .map(() => this._activatedRoute)
+            .map((route) => {
+                while (route.firstChild) route = route.firstChild;
+                return route;
+            })
+            .filter((route) => route.outlet === 'primary')
+            .mergeMap((route) => route.data)
+            .subscribe((event) => {
+                //console.log(event)
+                this.title = event.title;
+            });
         this.location = location;
         this.sidebarVisible = false;
     }
-    logout(){
-        this._gFunctions.logout().then(res =>{
+    logout() {
+        this._gFunctions.logout().then(res => {
             console.log(res);
             //this.router.navigateByUrl('admin/login');
 
-        }, error =>{
+        }, error => {
             console.log(error)
         });
     }
 
     ngOnInit() {
+
         this.listTitles = ROUTES.filter(listTitle => listTitle);
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];

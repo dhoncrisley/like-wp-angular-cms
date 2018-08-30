@@ -45,7 +45,7 @@ ul {
 #tags-panel,
 #categories-panel {
     max-height: 300px;
-    overflow-y: auto !important;
+    overflow-y: scroll !important;
     width: 100%;
 }
 
@@ -115,8 +115,8 @@ ul {
   }
   .button-row button,
 .button-row a {
-  margin-left: 8px;
+  margin-right: 8px;
 }
 .button-row{
-    margin-top: 8px;
+    margin-bottom: 8px;
 }

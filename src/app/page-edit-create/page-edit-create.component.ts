@@ -12,15 +12,13 @@ import { FormArray, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 import { Http } from '../../../node_modules/@angular/http';
 import { GeneralFunctionsService } from 'app/_services/general-functions.service';
-import { FirebaseError } from 'firebase';
-import { MatDialog } from '@angular/material';
 
 @Component({
-  selector: 'app-post-edit-create',
-  templateUrl: './post-edit-create.component.html',
-  styleUrls: ['./post-edit-create.component.scss']
+  selector: 'app-page-edit-create',
+  templateUrl: './page-edit-create.component.html',
+  styleUrls: ['./page-edit-create.component.scss']
 })
-export class PostEditCreateComponent implements OnInit {
+export class PageEditCreateComponent implements OnInit {
   postData: any;
   title: string;
   id;
@@ -30,7 +28,7 @@ export class PostEditCreateComponent implements OnInit {
   options = {
     heightMin: 400,
     heightMax: 600,
-    placeholderText: "Escreva o conteúdo do post aqui",
+    placeholderText: "Escreva o conteúdo da página aqui",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
     imageUploadMethod: 'GET',
     imageManagerPageSize: 10,
@@ -44,7 +42,7 @@ export class PostEditCreateComponent implements OnInit {
         //ARRUMAR SABAGAÇA DEPOIS
         this.imageUploading = true;
         const id = this._afs.createId();
-        const path = 'images/posts/' + id + '/' + Date.now() + response[0].name;
+        const path = 'images/pages/' + id + '/' + Date.now() + response[0].name;
         var ref: AngularFireStorageReference = this._storage.ref(path);
         var task: AngularFireUploadTask = ref.put(response[0]);
         var uploadPercent = task.percentageChanges();
@@ -88,7 +86,6 @@ export class PostEditCreateComponent implements OnInit {
   imageUploading: boolean;
   adminName: any;
   constructor(
-
     private _gFunctions: GeneralFunctionsService,
     private _storage: AngularFireStorage,
     private _afs: AngularFirestore,
@@ -96,26 +93,22 @@ export class PostEditCreateComponent implements OnInit {
     private _location: Location,
     private _fb: FormBuilder,
     private _http: Http) {
+
     this.catRef = this._afs.collection<Category>('categories');
-    this.postsRef = this._afs.collection('posts')
+    this.postsRef = this._afs.collection('pages')
   }
 
-  discartPost() {
-    console.log('discart post')
-    this._location.back();
-
-  }
 
   ngOnInit() {
-    this._gFunctions.getAdminName().then(() => {
+    this._gFunctions.getAdminName().then(()=>{
 
       console.log(this.adminName)
     });
     this._route.params.subscribe(params => {
       if (params.id == "new") {
-        this.title = 'Novo Post';
+        this.title = 'Nova Página';
       } else {
-        this.title = 'Editar Post';
+        this.title = 'Editar Página';
         this.id = params.id;
         this.postData = this.postsRef.doc(params.id).ref.get()
           .then(res => {
@@ -150,8 +143,6 @@ export class PostEditCreateComponent implements OnInit {
     this.catRef.doc(id).set(category);
     this.newCategory = undefined;
   }
-
-
   deleteCategory(category: Category) {
     this._afs.collection("categories").doc(category.cat_id).update({ cat_active: false }).then(() => {
       this._gFunctions.showNotification('success', 'center', "Categoria " + category.cat_name + " Deletada com sucesso!");
@@ -160,12 +151,12 @@ export class PostEditCreateComponent implements OnInit {
 
     }).catch(error => {
       this._gFunctions.showNotification('danger', 'center', "Erro ao deletar a categoria " + category.cat_name + ", tente novamente.");
-
+    
       console.error("Error removing document: ", error);
     });
   }
-  /* TODO: Consertar a seleção de categorias que ao editar um post quando selecionar uma categoria e já existiam categorias 
-    já definidas todas são desmarcadas exceto a que foi recentemente marcada */
+  /* TODO: Consertar a seleção de categorias que ao editar um post 
+  /quando selecionar uma categoria e já existiam categorias já definidas todas são desmarcadas exceto a que foi recentemente marcada */
   onCatChange(cat_id: string, isChecked: boolean) {
 
     var catFormArray = <FormArray>this.catForm.controls.cat_id;
@@ -200,9 +191,9 @@ export class PostEditCreateComponent implements OnInit {
     this.postDate = date;
     this.postData = {
       id: id,
-      title: this.postTitle ? this.postTitle : this._gFunctions.showNotification('danger', 'center', "Preencha o TÍTULO DO POST"),
-      content: this.content ? this.content : this._gFunctions.showNotification('danger', 'center', "Escreva algum CONTEÚDO"),
-      author: this.adminName ? this.adminName : 'sem autor',
+      content: this.content,
+      title: this.postTitle,
+      author: 'this.adminName',
       name: this._gFunctions.replaceSpecialChars(this.postTitle),
       thumb: this.thumbURL ? this.thumbURL : '',
       date: this.postDate,
@@ -210,12 +201,12 @@ export class PostEditCreateComponent implements OnInit {
       tags: [1, 4, 2],
       categories: this.postCategories ? this.postCategories : []
     };
-    this._afs.collection('posts/').doc(id).set(this.postData).then(res => {
+    this._afs.collection('pages/').doc(id).set(this.postData).then(res =>{
 
       this._location.back();
-    }, error => {
+    }, error=>{
       console.log(error);
-      const msg = "Erro ao ao salvar o post: " + error.message;
+      const msg = "Erro ao ao salvar a página: "+ error.message;
       this._gFunctions.showNotification('danger', 'center', msg);
     });
   }
@@ -226,7 +217,7 @@ export class PostEditCreateComponent implements OnInit {
     this.uploading = true;
     const id = this.id ? this.id : this._afs.createId();
     this.id = id;
-    const path = 'images/posts/' + id + '/' + Date.now() + $event.target.files[0].name;
+    const path = 'images/pages/' + id + '/' + Date.now() + $event.target.files[0].name;
     var ref: AngularFireStorageReference = this._storage.ref(path);
     var task: AngularFireUploadTask = ref.put($event.target.files[0]);
     this.uploadPercent = task.percentageChanges();

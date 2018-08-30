@@ -33,8 +33,8 @@ export class AddMenuDialogComponent implements OnInit {
       case 'post':
         if (selectedData) {
           console.log('selected data', selectedData)
-          this.data.url = '/post/'+selectedData.post_name
-          this.data.name = selectedData.post_title          
+          this.data.url = '/post/'+selectedData.name
+          this.data.name = selectedData.title          
         }
         break;
       case 'page':

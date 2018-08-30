@@ -1,29 +1,46 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Widgets</h4>
-                        <p class="card-category">Adicione widgets a sua sidebar registrada</p>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn add" (click)="openDialog()">
-                            <i class="material-icons">add</i>
-                        </button>
-                        <div class="card widget" *ngFor="let widget of activeWidgets | async">
-                            <div class="manage-hover-buttons">
-                                <div class="manage-buttons">
-                                    <i class="material-icons" matTooltip="Remover" [matTooltipPosition]="'above'" (click)="removeWidget(widget)">close</i>
-                                    <i class="material-icons" matTooltip="Editar" [matTooltipPosition]="'above'" (click)="editWidget(widget)">edit</i>
-                                </div>
-                            </div>
-                            <div [innerHtml]="widget.html | safeHtml">
+            <mat-card class="col-md-4">
+                <mat-card-header>
+                    <mat-card-title>Widgets</mat-card-title>
+                    <mat-card-subtitle>Adicione widgets a sua sidebar</mat-card-subtitle>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+
+                <mat-card-content>
+
+                    <mat-card class="widget" *ngFor="let widget of activeWidgets | async">
+                        <div class="manage-hover-buttons">
+                            <div class="manage-buttons">
+                                <a >
+                                    <mat-icon matTooltip="Remover" color="warn" [matTooltipPosition]="'above'" (click)="removeWidget(widget)">close</mat-icon>
+                                </a>
+                                <a >
+                                    <mat-icon matTooltip="Editar" color="primary" [matTooltipPosition]="'above'" (click)="editWidget(widget)">edit</mat-icon>
+                                </a>
                             </div>
                         </div>
+                        <div [innerHtml]="widget.html | safeHtml">
+                        </div>
+                    </mat-card>
+                </mat-card-content>
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    <button mat-button color="primary" (click)="openDialog()"> <i class="material-icons">add</i> </button>
+                    <!-- <button>LIKE</button>
+                    <button mat-button>SHARE</button> -->
+                </mat-card-actions>
+                <!-- <progress   class="progress-bar bg-warning" >0%</progress> -->
+
+            </mat-card>
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-header-danger">
@@ -34,7 +51,7 @@
                         <button class="btn add" (click)="addNavItem()">
                             <i class="material-icons">add</i>
                         </button>
-                        <div dragula="DRAG_NAV" [(dragulaModel)]="navItems" >
+                        <div dragula="DRAG_NAV" [(dragulaModel)]="navItems">
                             <div class="card menu-item" *ngFor="let item of menus | async">
                                 <div class="manage-hover-buttons">
                                     <div class="manage-buttons">

@@ -16,7 +16,7 @@
     display: none;
     border-radius: 3px;
     
-    background: #00000026;
+    background: #ffffff00;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -26,6 +26,7 @@
 .widget:hover, .menu-item:hover{
     .manage-hover-buttons{
         display: block;
+        position: inherit;
     }
 }
 .manage-buttons{
@@ -35,7 +36,7 @@
     }
     i:hover{
         transition: .25s;
-        color: rgb(231, 231, 231);
+        color: rgb(0, 0, 0);
         text-shadow: 0 3px 4px #00000026;
     }
     border-radius: 3px;
@@ -56,4 +57,10 @@
 }
 .menu-item:active{
     cursor: -webkit-grabbing;
+}
+.mat-card {
+    margin: 15px 0;
+}
+.mat-card-content>:first-child, .mat-card>:first-child {
+    margin-top: 15px;
 }

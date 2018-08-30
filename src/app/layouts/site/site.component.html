@@ -9,11 +9,11 @@
                 </li>
                 <li *ngFor="let item of menuItems | async" class="nav-item">
 
-                    <a class="nav-link" *ngIf="item.type == 'custom'"  href="{{item.url}}" target="_blank">
+                    <a class="nav-link" *ngIf="item.type == 'custom'" href="{{item.url}}" target="_blank">
                         {{item.name}}
-                        <i  class="material-icons">call_made</i>
+                        <i class="material-icons">call_made</i>
                     </a>
-                    <a class="nav-link" *ngIf="item.type != 'custom'"  routerLink="{{item.url}}" >
+                    <a class="nav-link" *ngIf="item.type != 'custom'" routerLink="{{item.url}}">
                         {{item.name}}
                     </a>
                 </li>
@@ -64,7 +64,10 @@
         </div>
     </div>
 </nav>
-<header class="jumbotron text-center">
+<header style="background: #8e24aa;
+color: white;
+font-family: tahoma;
+font-weight: 800;" class="jumbotron text-center">
     <h1>{{ (configs | async)?.blogname }}</h1>
     <h4>{{ (configs | async)?.blogdescription }}</h4>
 

@@ -7,7 +7,7 @@ import { SingleComponent } from '../site-templates/single/single.component';
 
 import { AngularFireAuth } from '../../../../node_modules/angularfire2/auth';
 import { FroalaEditorModule, FroalaViewModule } from '../../../../node_modules/angular-froala-wysiwyg';
-
+import 'rxjs/add/operator/mergeMap';
 
 
 @NgModule({

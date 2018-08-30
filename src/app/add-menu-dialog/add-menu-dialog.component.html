@@ -17,7 +17,7 @@
     <div *ngSwitchCase="'post'" class="posts-container">
       <mat-radio-group [(ngModel)]="selectedPost" (ngModelChange)="typeChanged($event, selectedPost)">
         <div *ngFor="let post of posts | async">
-          <mat-radio-button [value]="post"><h4>{{post.post_title}}</h4></mat-radio-button>
+          <mat-radio-button [value]="post"><h4>{{post.title}}</h4></mat-radio-button>
           <br/>
         </div>
         <!-- <mat-radio-button value="2">Option 2</mat-radio-button> -->

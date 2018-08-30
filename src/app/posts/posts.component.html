@@ -1,88 +1,115 @@
-<div class="main-content">
+<div class="main-content" style="min-height: calc(100vh - 155px);">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 col-md-10 mr-auto">
-                <div class="row">
-                    <div class="col-md-4">
-                        <button mat-raised-button class="btn btn-success btn-block" (click)="newPost()">+ Novo Post</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showCategories()">Categorias</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button mat-raised-button class="btn btn-danger btn-block" (click)="showtags()">Tags</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Posts</h4>
-                        <p class="card-category"> Subtitulo</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>
-                                        <input type="checkbox">
-                                    </th>
-                                    <th>
-                                        <i class="material-icons">insert_photo</i>
-                                    </th>
-                                    <th> Titulo </th>
-                                    <th>Autor</th>
-                                    <th>Categoria</th>
-                                    <th>Tags</th>
-                                    <!-- <th>Estatisticas</th> -->
-                                    <th>Criado em:</th>
-                                    <th>Modificado em:</th>
-                                    <th>Editar</th>
-                                </thead>
-                                <tbody>
-                                    <!--                       <tr *ngFor="let category of catsRef | async; i as index">
-                                        <td>{{category.cat_name}}</td>
-                                    </tr> -->
-                                    <tr *ngFor="let post of posts | async; i as index">
-                                        <td>
-                                            <input type="checkbox">
-                                        </td>
-                                        <td>
-                                            <img class="post-mini-thumb" *ngIf="post.post_thumb" [src]="post.post_thumb" alt="">
-                                            <i *ngIf="!post.post_thumb" class="material-icons">insert_photo</i>
-                                        </td>
-                                        <td>
-                                            <a target="_blank" href="http://localhost:4200/post/{{post.name}}">{{post.post_title}}</a>
-                                        </td>
-                                        <td>
-                                            <a routerLink="/admin/users/{{post.post_author}}">{{post.post_author}}</a>
-                                        </td>
-                                        <td style="width:150px;">
-                                            <a *ngFor="let category of post.post_categories" routerLink="/admin/categories/{{getCategory(category).cat_slug}}">{{getCategory(category).cat_name}} </a>
-                                        </td>
-                                        <td>
-                                            <a *ngFor="let tag of post.post_tags">{{tag}} </a>
-                                        </td>
-                                        <!-- <td>sobre as estatisticas</td> -->
-                                        <td style="width:150px;">{{post.post_date | date:'dd/LL/yyyy - HH:mm'}}</td>
-                                        <td style="width:150px;">{{post.post_modified | date:'dd/LL/yyyy - HH:mm'}}</td>
-                                        <td>
-                                            <a routerLink="{{post.post_id}}">
-                                                <i class="material-icons">edit</i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" (click)="newPost()">+ Novo Post</button>
+                    <button mat-raised-button (click)="showCategories()">Categorias</button>
+                    <button mat-raised-button (click)="showtags()">Tags</button>
                 </div>
-                <!-- <app-loader *ngIf="posts | async as post"> {{post}} </app-loader> -->
+                <div class="content" scrollable (scrollPosition)="scrollHandler($event)">
+
+                    <table mat-table [dataSource]="_pager.data | async" class="mat-elevation-z8">
+
+                        <!-- <ng-container matColumnDef="check">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container> -->
+                        <ng-container matColumnDef="check">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox></mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let post">
+                                <mat-checkbox></mat-checkbox>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="thumb">
+                            <th mat-header-cell *matHeaderCellDef> <i class="material-icons">insert_photo</i> </th>
+                            <td mat-cell *matCellDef="let post">
+                                <img class="post-mini-thumb" *ngIf="post.thumb" [src]="post.thumb" alt="">
+                                <i *ngIf="!post.thumb" class="material-icons">insert_photo</i>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef> Título </th>
+                            <td mat-cell *matCellDef="let post"> <a target="_blank" href="http://localhost:4200/post/{{post.name}}">{{post.title}}</a>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="author">
+                            <th mat-header-cell *matHeaderCellDef> Autor </th>
+                            <td mat-cell *matCellDef="let post"> <a routerLink="/admin/users/{{post.author}}">{{post.author}}</a>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="categories">
+                            <th mat-header-cell *matHeaderCellDef> Categorias </th>
+                            <td mat-cell *matCellDef="let post">
+                                <a *ngFor="let category of post.categories; last as last" routerLink="/admin/categories/{{getCategory(category).cat_slug}}">{{getCategory(category).cat_name}}<span *ngIf="!last">, </span>  
+                                </a>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="tags">
+                            <th mat-header-cell *matHeaderCellDef> Tags </th>
+                            <td mat-cell *matCellDef="let post">
+                                <a *ngFor="let tag of post.tags">{{tag}} </a>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef> Criado em </th>
+                            <td mat-cell *matCellDef="let post">
+                                {{post.date | date:'dd/LL/yyyy - HH:mm'}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="modified">
+                            <th mat-header-cell *matHeaderCellDef> Modificado em: </th>
+                            <td mat-cell *matCellDef="let post">
+                                {{post.modified | date:'dd/LL/yyyy - HH:mm'}}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="edit">
+                            <th mat-header-cell *matHeaderCellDef> Opções </th>
+                            <td mat-cell *matCellDef="let post; let last = last">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item routerLink="{{post.id}}">
+                                        <mat-icon>edit</mat-icon>
+                                        <span>Editar</span>
+                                    </button>
+                                    <button mat-menu-item (click)="deletePost(post)">
+                                        <mat-icon>close</mat-icon>
+                                        <span>Apagar</span>
+                                    </button>
+                                </mat-menu>
+                                <!-- <div *ngIf="last">{{last ?  setLastChild(post) : ''}} </div> -->
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+                <mat-progress-spinner *ngIf="_pager.loading | async" class="example-margin" color="warn" mode="indeterminate">
+                </mat-progress-spinner>
+                <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" (page)="pageEventChange($event)" showFirstLastButtons></mat-paginator> -->
+
+
                 <h4 *ngIf="posts | async as post"> <label *ngIf="!post">Nenhum post encontrado</label> </h4>
             </div>
-
         </div>
     </div>
 </div>

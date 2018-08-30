@@ -7,7 +7,25 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatDialogModule,
+  MatRippleModule,
+  MatTooltipModule,
+  MatCheckboxModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatCardModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatMenuModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatSidenavModule
+} from '@angular/material';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AngularFireModule } from 'angularfire2';
@@ -15,11 +33,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SiteComponent } from './layouts/site/site.component';
 import { SiteModule } from './layouts/site/site.module';
 import { FroalaEditorModule, FroalaViewModule } from '../../node_modules/angular-froala-wysiwyg';
-import { SafeHtmlPipe } from './safe-html.pipe';
-import { SafeCssPipe } from './safe-css.pipe';
-import { DragulaModule } from 'ng2-dragula';
-
-
+import { FirestorePagerService } from 'app/_services/firestore-pager.service';
 
 export const environment = {
   production: false,
@@ -49,14 +63,21 @@ export const environment = {
     AppRoutingModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, 
-    /* AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }) */
+    AngularFirestoreModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule
   ],
-  providers: [],
+  providers: [FirestorePagerService],
   exports:[FroalaEditorModule, FroalaViewModule],
-
   bootstrap: [AppComponent],
 })
 export class AppModule { }
