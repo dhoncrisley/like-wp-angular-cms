@@ -155,6 +155,7 @@ export class PostEditCreateComponent implements OnInit {
             input.value = '';
         }
     }
+    //FIXME: encontrar um jeito melhor de fazer isso.
     getTag(tag): any {
         try {
             const tagName = this.tagsObjs.filter(item => item.id == tag);
